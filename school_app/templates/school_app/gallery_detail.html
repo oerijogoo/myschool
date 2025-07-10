@@ -1,0 +1,64 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}{{ gallery.title }}{% endblock %}
+
+{% block content %}
+    <!-- Gallery Detail Hero Section -->
+    <section class="gallery-detail-hero-section py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4">{{ gallery.title }}</h1>
+                    {% if gallery.description %}
+                        <p class="lead">{{ gallery.description }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Detail Content -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                {% for image in gallery.images.all %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card border-0 shadow-sm">
+                            <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.caption|default:gallery.title }}">
+                            {% if image.caption %}
+                                <div class="card-footer bg-transparent">
+                                    <p class="card-text">{{ image.caption }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">No images in this gallery yet.</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="text-center mt-4">
+                    <a href="{% url 'gallery_image_add' gallery.pk %}" class="btn btn-primary me-2">
+                        <i class="fas fa-plus me-2"></i>Add Images
+                    </a>
+                    <a href="{% url 'gallery_update' gallery.pk %}" class="btn btn-secondary me-2">
+                        <i class="fas fa-edit me-2"></i>Edit Gallery
+                    </a>
+                    <a href="{% url 'gallery_delete' gallery.pk %}" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Delete Gallery
+                    </a>
+                </div>
+            {% endif %}
+
+            <div class="text-center mt-4">
+                <a href="{% url 'gallery_list' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-left me-2"></i>Back to Galleries
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'school_app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Contact Us - {{ school_config.name }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section bg-primary text-white py-5">
+    <div class="container py-5">
+        <div class="row py-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 fw-bold">Contact Us</h1>
+            <p class="lead mb-0">We'd love to hear from you</p>
+        </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h2 class="card-title text-center mb-4">Send Us a Message</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Info Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
+                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                        </div>
+                        <h5 class="card-title">Address</h5>
+                        <p class="card-text">{{ school_config.address }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 mb-md-0">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
+                            <i class="fas fa-phone fa-2x"></i>
+                        </div>
+                        <h5 class="card-title">Phone</h5>
+                        <p class="card-text">{{ school_config.phone }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
+                            <i class="fas fa-envelope fa-2x"></i>
+                        </div>
+                        <h5 class="card-title">Email</h5>
+                        <p class="card-text">{{ school_config.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2 class="text-center mb-5">Our Location</h2>
+                {% if school_config.google_map_embed %}
+                <div class="ratio ratio-16x9">
+                    {{ school_config.google_map_embed|safe }}
+                </div>
+                {% else %}
+                <p class="text-center">Map not available</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

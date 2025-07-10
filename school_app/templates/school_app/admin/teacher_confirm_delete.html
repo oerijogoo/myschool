@@ -1,0 +1,20 @@
+{% extends 'school_app/admin/base.html' %}
+
+{% block admin_content %}
+<div class="card">
+    <div class="card-header bg-danger text-white">
+        <h5>Delete Teacher</h5>
+    </div>
+    <div class="card-body">
+        <p>Are you sure you want to delete the teacher "{{ object.name }}"?</p>
+        {% if object.image %}
+            <img src="{{ object.image.url }}" alt="{{ object.name }}" class="rounded-circle mb-3" width="100" height="100">
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'admin-teacher-list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

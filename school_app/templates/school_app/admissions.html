@@ -1,0 +1,100 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Admissions Hero Section -->
+    <section class="page-hero bg-primary text-white py-5">
+        <div class="container">
+            <h1 class="display-4">Admissions</h1>
+            <p class="lead">How to join our school community</p>
+        </div>
+    </section>
+
+    <!-- Content Sections -->
+    {% for section in admissions_sections %}
+        <section class="section-{{ section.color }} py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">{{ section.title }}</h2>
+                <div class="row align-items-center">
+                    {% if section.image_position == 'left' %}
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            {% if section.image %}
+                                <img src="{{ section.image.url }}" alt="{{ section.title }}" class="img-fluid rounded">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ section.content|safe }}
+                        </div>
+                    {% else %}
+                        <div class="col-md-6 order-md-2 mb-4 mb-md-0">
+                            {% if section.image %}
+                                <img src="{{ section.image.url }}" alt="{{ section.title }}" class="img-fluid rounded">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6 order-md-1">
+                            {{ section.content|safe }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+
+    <!-- Admission Process Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Admission Process</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-icon bg-primary text-white">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Application Submission</h4>
+                                <p>Complete and submit the application form along with required documents.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon bg-primary text-white">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Assessment</h4>
+                                <p>Student assessment and interview with school administration.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon bg-primary text-white">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Admission Decision</h4>
+                                <p>Notification of admission decision within two weeks of assessment.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon bg-primary text-white">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Fee Payment</h4>
+                                <p>Payment of required fees to secure admission.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon bg-primary text-white">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Orientation</h4>
+                                <p>New student and parent orientation before school starts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

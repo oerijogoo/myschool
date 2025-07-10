@@ -1,0 +1,41 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}Gallery - {{ config.name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-12 text-center">
+                <h1 class="display-5 fw-bold">School Gallery</h1>
+                <p class="lead">Explore moments from our school life.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            {% for gallery in galleries %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    {% with first_image=gallery.images.first %}
+                        {% if first_image %}
+                            <img src="{{ first_image.image.url }}" class="card-img-top" alt="{{ gallery.title }}">
+                        {% endif %}
+                    {% endwith %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ gallery.title }}</h5>
+                        {% if gallery.description %}
+                            <p class="card-text">{{ gallery.description }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <a href="{% url 'gallery_detail' gallery.id %}" class="btn btn-sm btn-primary">View Gallery</a>
+                        <small class="text-muted float-end">{{ gallery.images.count }} photos</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

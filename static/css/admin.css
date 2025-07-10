@@ -1,0 +1,109 @@
+/* Admin Panel Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Sidebar Styles */
+#sidebar {
+    height: calc(100vh - 56px);
+    position: fixed;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+#sidebar .nav-link {
+    color: #495057;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+#sidebar .nav-link:hover {
+    background-color: #e9ecef;
+}
+
+#sidebar .nav-link.active {
+    background-color: #0d6efd;
+    color: white;
+}
+
+#sidebar .nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content Area */
+main {
+    margin-top: 56px;
+    padding-top: 1rem;
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    main {
+        margin-left: 250px;
+    }
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    font-weight: 500;
+}
+
+/* Table Styles */
+.table {
+    background-color: white;
+}
+
+.table th {
+    font-weight: 600;
+    border-top: none;
+}
+
+/* Form Styles */
+.form-control:focus, .form-select:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Alert Styles */
+.alert {
+    border: none;
+}
+
+/* Button Styles */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Footer Styles */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) {
+    #sidebar {
+        position: static;
+        height: auto;
+    }
+
+    main {
+        margin-left: 0;
+    }
+
+    .footer {
+        position: static;
+    }
+}

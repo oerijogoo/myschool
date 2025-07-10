@@ -1,0 +1,39 @@
+<!-- templates/school_app/news_detail.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ news.title }} - {{ school.school_name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <article class="news-article">
+                    <header class="mb-4">
+                        <h1 class="fw-bold mb-3">{{ news.title }}</h1>
+                        <div class="text-muted mb-3">
+                            <i class="far fa-calendar-alt me-2"></i>
+                            {{ news.date_posted|date:"F j, Y" }}
+                        </div>
+                        {% if news.image %}
+                            <img src="{{ news.image.url }}" alt="{{ news.title }}" class="img-fluid rounded mb-4">
+                        {% endif %}
+                    </header>
+
+                    <div class="news-content">
+                        {{ news.content|safe }}
+                    </div>
+
+                    <footer class="mt-5 pt-4 border-top">
+                        <a href="{% url 'news-list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to News
+                        </a>
+                    </footer>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

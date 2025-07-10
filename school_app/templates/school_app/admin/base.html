@@ -1,0 +1,37 @@
+<!-- templates/school_app/admin/base.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin - {{ school.school_name }}{% endblock %}
+
+{% block content %}
+<div class="admin-container py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="admin-sidebar card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Admin Dashboard</h5>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="{% url 'admin-school-info' %}" class="list-group-item list-group-item-action">School Info</a>
+                        <a href="{% url 'admin-hero-images' %}" class="list-group-item list-group-item-action">Hero Images</a>
+                        <a href="#" class="list-group-item list-group-item-action">News</a>
+                        <a href="#" class="list-group-item list-group-item-action">Events</a>
+                        <a href="#" class="list-group-item list-group-item-action">Achievements</a>
+                        <a href="#" class="list-group-item list-group-item-action">Classes</a>
+                        <a href="#" class="list-group-item list-group-item-action">Teachers</a>
+                        <a href="#" class="list-group-item list-group-item-action">Adverts</a>
+                        <a href="#" class="list-group-item list-group-item-action">Gallery</a>
+                        <a href="#" class="list-group-item list-group-item-action">Pages</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                {% block admin_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

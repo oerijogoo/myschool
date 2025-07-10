@@ -1,0 +1,44 @@
+{% extends 'school_app/base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="page-title mb-4">{{ page.title }}</h1>
+            <div class="page-content">
+                {{ page.content|safe }}
+            </div>
+
+            {% for section in page.sections.all %}
+            {% if section.is_active %}
+            <section class="my-5 p-4 rounded bg-{{ section.color }}">
+                <h2 class="section-title">{{ section.title }}</h2>
+                {% if section.subtitle %}
+                <p class="section-subtitle lead">{{ section.subtitle }}</p>
+                {% endif %}
+                {% if section.content %}
+                <div class="section-content">
+                    {{ section.content|safe }}
+                </div>
+                {% endif %}
+
+                {% for subsection in section.subsections.all %}
+                {% if subsection.is_active %}
+                <div class="subsection my-4 p-3 bg-white rounded">
+                    <h3 class="subsection-title">{{ subsection.title }}</h3>
+                    <div class="subsection-content">
+                        {% if subsection.image %}
+                        <img src="{{ subsection.image.url }}" alt="{{ subsection.title }}" class="img-fluid mb-3 rounded">
+                        {% endif %}
+                        {{ subsection.content|safe }}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </section>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+    <!-- Events Hero Section -->
+    <section class="events-hero-section py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4">School Events</h1>
+                    <p class="lead">Discover our upcoming and past events</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title mb-5">Upcoming Events</h2>
+            <div class="row">
+                {% for event in upcoming_events %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            {% if event.image %}
+                                <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h3 class="card-title">{{ event.title }}</h3>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-calendar-alt me-2"></i>
+                                        {{ event.start_date|date:"M d, Y" }}
+                                        {% if event.end_date != event.start_date %}
+                                            - {{ event.end_date|date:"M d, Y" }}
+                                        {% endif %}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-clock me-2"></i>
+                                        {{ event.start_date|time }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-map-marker-alt me-2"></i>
+                                        {{ event.location }}
+                                    </li>
+                                </ul>
+                                <p class="card-text">{{ event.description|striptags|truncatewords:20 }}</p>
+                                <a href="{% url 'event_detail' event.pk %}" class="btn btn-primary">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">No upcoming events at the moment.</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Past Events Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title mb-5">Past Events</h2>
+            <div class="row">
+                {% for event in past_events %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            {% if event.image %}
+                                <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h3 class="card-title">{{ event.title }}</h3>
+                                <ul class="list-group list-group-flush mb-3">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-calendar-alt me-2"></i>
+                                        {{ event.start_date|date:"M d, Y" }}
+                                        {% if event.end_date != event.start_date %}
+                                            - {{ event.end_date|date:"M d, Y" }}
+                                        {% endif %}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-map-marker-alt me-2"></i>
+                                        {{ event.location }}
+                                    </li>
+                                </ul>
+                                <p class="card-text">{{ event.description|striptags|truncatewords:20 }}</p>
+                                <a href="{% url 'event_detail' event.pk %}" class="btn btn-outline-primary">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">No past events to display.</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

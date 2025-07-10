@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ class.name }} - {{ school.school_name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <article class="class-article">
+                    <header class="mb-4 text-center">
+                        <h1 class="fw-bold mb-3">{{ class.name }}</h1>
+                        {% if class.image %}
+                            <img src="{{ class.image.url }}" alt="{{ class.name }}" class="img-fluid rounded mb-4" style="max-height: 400px;">
+                        {% endif %}
+                    </header>
+
+                    <div class="class-content">
+                        {{ class.description|safe }}
+                    </div>
+
+                    <footer class="mt-5 pt-4 border-top text-center">
+                        <a href="{% url 'class-list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Classes
+                        </a>
+                    </footer>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

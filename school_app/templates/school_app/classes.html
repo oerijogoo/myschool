@@ -1,0 +1,51 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}Classes{% endblock %}
+
+{% block content %}
+    <!-- Classes Hero Section -->
+    <section class="classes-hero-section py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4">Our Classes</h1>
+                    <p class="lead">Explore our academic programs and classes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classes List Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                {% for class in classes %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ class.name }}</h3>
+                                <p class="card-text">{{ class.description|striptags|truncatewords:20 }}</p>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="{% url 'class_detail' class.pk %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <div class="alert alert-info">No classes available at the moment.</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="text-center mt-4">
+                    <a href="{% url 'class_create' %}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Add New Class
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

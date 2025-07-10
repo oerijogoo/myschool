@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ teacher.name }} - {{ school.school_name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <article class="teacher-profile">
+                    <header class="mb-4 text-center">
+                        {% if teacher.image %}
+                            <img src="{{ teacher.image.url }}" alt="{{ teacher.name }}" class="rounded-circle mb-3" width="200" height="200">
+                        {% endif %}
+                        <h1 class="fw-bold mb-1">{{ teacher.name }}</h1>
+                        <p class="text-muted">{{ teacher.position }}</p>
+                    </header>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Subjects</h5>
+                                    <p class="card-text">{{ teacher.subjects }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% if teacher.is_featured %}
+                            <div class="col-md-6">
+                                <div class="card mb-3 bg-light">
+                                    <div class="card-body text-center">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <span class="ms-2">Featured Teacher</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="teacher-bio">
+                        <h4 class="mb-3">About</h4>
+                        {{ teacher.bio|safe }}
+                    </div>
+
+                    <footer class="mt-5 pt-4 border-top text-center">
+                        <a href="{% url 'teacher-list' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i> Back to Teachers
+                        </a>
+                    </footer>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

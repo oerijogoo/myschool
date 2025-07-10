@@ -1,0 +1,77 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}{{ news.title }} - {{ school_config.school_name }}{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <article class="news-detail">
+                    <div class="news-meta mb-3">
+                        <span class="text-muted"><i class="far fa-calendar-alt me-2"></i>{{ news.created_at|date:"M d, Y" }}</span>
+                    </div>
+                    <h1 class="news-title mb-4">{{ news.title }}</h1>
+
+                    <div class="news-image mb-4">
+                        <img src="{{ news.image.url }}" alt="{{ news.title }}" class="img-fluid rounded">
+                    </div>
+
+                    <div class="news-content">
+                        {{ news.content|safe }}
+                    </div>
+                </article>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="sidebar-widget mb-4">
+                        <h4 class="widget-title">Recent News</h4>
+                        <ul class="list-unstyled">
+                            {% for recent_news in recent_news %}
+                            <li class="mb-3">
+                                <a href="{% url 'news_detail' recent_news.slug %}" class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{ recent_news.image.url }}" alt="{{ recent_news.title }}" width="80" class="rounded">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="mb-1">{{ recent_news.title }}</h6>
+                                        <small class="text-muted">{{ recent_news.created_at|date:"M d, Y" }}</small>
+                                    </div>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget mb-4">
+                        <h4 class="widget-title">Upcoming Events</h4>
+                        <ul class="list-unstyled">
+                            {% for event in upcoming_events %}
+                            <li class="mb-3">
+                                <a href="{% url 'event_detail' event.pk %}" class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        {% if event.image %}
+                                        <img src="{{ event.image.url }}" alt="{{ event.title }}" width="80" class="rounded">
+                                        {% else %}
+                                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                            <i class="fas fa-calendar-alt fa-2x text-muted"></i>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h6 class="mb-1">{{ event.title }}</h6>
+                                        <small class="text-muted">{{ event.start_date|date:"M d, Y" }}</small>
+                                    </div>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,96 @@
+<!-- templates/school_app/admin/heroimage_form.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Hero Image | Admin | {{ school.name }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        {% include 'school_app/admin/sidebar.html' %}
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">{% if object %}Edit{% else %}Add{% endif %} Hero Image</h1>
+            </div>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="text-danger">{{ form.title.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="{{ form.subtitle.id_for_label }}" class="form-label">Subtitle (Optional)</label>
+                        {{ form.subtitle }}
+                        {% if form.subtitle.errors %}
+                            <div class="text-danger">{{ form.subtitle.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="{{ form.image.id_for_label }}" class="form-label">Image</label>
+                        {{ form.image }}
+                        {% if form.image.errors %}
+                            <div class="text-danger">{{ form.image.errors }}</div>
+                        {% endif %}
+                        {% if object and object.image %}
+                            <div class="mt-2">
+                                <img src="{{ object.image.url }}" alt="{{ object.title }}" style="max-width: 200px;">
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="{{ form.transition_effect.id_for_label }}" class="form-label">Transition Effect</label>
+                        {{ form.transition_effect }}
+                        {% if form.transition_effect.errors %}
+                            <div class="text-danger">{{ form.transition_effect.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="{{ form.order.id_for_label }}" class="form-label">Order</label>
+                        {{ form.order }}
+                        {% if form.order.errors %}
+                            <div class="text-danger">{{ form.order.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="{{ form.button_text.id_for_label }}" class="form-label">Button Text (Optional)</label>
+                        {{ form.button_text }}
+                        {% if form.button_text.errors %}
+                            <div class="text-danger">{{ form.button_text.errors }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-4">
+                        <label for="{{ form.button_link.id_for_label }}" class="form-label">Button Link (Optional)</label>
+                        {{ form.button_link }}
+                        {% if form.button_link.errors %}
+                            <div class="text-danger">{{ form.button_link.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mb-3 form-check">
+                    {{ form.is_active }}
+                    <label class="form-check-label" for="{{ form.is_active.id_for_label }}">Active</label>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{% url 'heroimage_list' %}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+{% endblock %}

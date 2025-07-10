@@ -1,0 +1,69 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}{% if news %}Edit{% else %}Add{% endif %} News{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="card-title mb-0">
+                        {% if news %}
+                            <i class="fas fa-edit me-2"></i>Edit News: {{ news.title }}
+                        {% else %}
+                            <i class="fas fa-plus me-2"></i>Add New News
+                        {% endif %}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.image.id_for_label }}" class="form-label">Featured Image</label>
+                            {{ form.image }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="{{ form.content.id_for_label }}" class="form-label">Content</label>
+                            {{ form.content }}
+                        </div>
+                        <div class="mb-3 form-check">
+                            {{ form.is_published }}
+                            <label class="form-check-label" for="{{ form.is_published.id_for_label }}">Publish immediately</label>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a href="{% if news %}{% url 'news_detail' news.slug %}{% else %}{% url 'news_list' %}{% endif %}" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    CKEDITOR.replace('id_content', {
+        toolbar: [
+            { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike'] },
+            { name: 'paragraph', items: ['NumberedList', 'BulletedList', 'Blockquote'] },
+            { name: 'links', items: ['Link', 'Unlink'] },
+            { name: 'insert', items: ['Image', 'Table', 'HorizontalRule'] },
+            { name: 'styles', items: ['Styles', 'Format'] },
+            { name: 'document', items: ['Source'] }
+        ],
+        height: 400
+    });
+</script>
+{% endblock %}

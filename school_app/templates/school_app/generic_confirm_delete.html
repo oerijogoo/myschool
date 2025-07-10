@@ -1,0 +1,28 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}Delete {{ object|title }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h3 class="mb-0">Confirm Deletion</h3>
+                </div>
+                <div class="card-body">
+                    <p>Are you sure you want to delete "{{ object }}"?</p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group mt-4">
+                            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                            <a href="{{ view.success_url }}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
