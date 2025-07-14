@@ -1,34 +1,20 @@
-FROM python:3.10-slim
+# Use an official Python runtime as the base image
+FROM python:3.10
 
-# Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1
-
-# Set working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    python3-dev \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copy and install dependencies
+# Copy the requirements file to the container
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy project files
+# Install the Python dependencies
+RUN pip install -r requirements.txt
+
+# Copy the Django project code to the container
 COPY . .
 
-# ✅ Set PYTHONPATH so Django can find 'school.settings'
-ENV PYTHONPATH=/app
+# Expose the port on which your Django app will run (usually 7903)
+EXPOSE 7903
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
-
-# Expose port
-EXPOSE 8000
-
-# Start the app with Gunicorn
-CMD ["gunicorn", "school.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Define thee command to run your Django app
+CMD ["python", "manage.py", "runserver", "0.0.0.0:7903"]
