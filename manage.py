@@ -5,8 +5,9 @@ from pathlib import Path
 
 
 def main():
-    # Add the parent directory to Python path (critical fix)
-    sys.path.append(str(Path(__file__).parent.parent))
+    # Add the project root to Python path
+    BASE_DIR = Path(__file__).resolve().parent
+    sys.path.append(str(BASE_DIR))
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'school.settings')
     try:
