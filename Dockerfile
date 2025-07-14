@@ -1,10 +1,10 @@
 FROM python:3.10-slim
 
-# Set environment variables
+# Disable pyc files and buffer
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1
 
-# Set working directory
+# Set work directory
 WORKDIR /app
 
 # Install system dependencies
@@ -14,15 +14,16 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy and install dependencies
+# Install Python dependencies
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy project files
+# Copy the full project
 COPY . .
 
-# ✅ Set PYTHONPATH so Django can find 'school.settings'
+# ✅ Set ENV vars BEFORE collectstatic (required!)
 ENV PYTHONPATH=/app
+ENV DJANGO_SETTINGS_MODULE=school.settings
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
@@ -30,5 +31,5 @@ RUN python manage.py collectstatic --noinput
 # Expose port
 EXPOSE 8000
 
-# Start the app with Gunicorn
+# Run the app with Gunicorn
 CMD ["gunicorn", "school.wsgi:application", "--bind", "0.0.0.0:8000"]
