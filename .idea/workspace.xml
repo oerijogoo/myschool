@@ -4,99 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca611501-6ae2-48b1-baa5-c40924ac553c" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/school_app/static/school_app/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/school_app/static/school_app/js/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/school_app/static/school_app/js/transitions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/school_app/templates/school_app/achievements_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/school_app/templates/school_app/calendar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/school_app/templates/school_app/fees.html" afterDir="false" />
+    <list default="true" id="ca611501-6ae2-48b1-baa5-c40924ac553c" name="Changes" comment="school app">
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/admin_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/context_processors.py" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/context_processors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/academics.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/academics.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/achievement_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/achievement_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/achievement_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/achievements.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/achievements.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/achievement_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/achievement_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/achievement_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/advert_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/advert_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/advert_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/base.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/class_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/class_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/class_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/dashboard.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/event_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/event_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/event_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/gallery_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/gallerycategory_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/gallerycategory_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/gallerycategory_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/galleryimage_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/galleryimage_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/galleryimage_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/hero_slide_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/hero_slide_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/hero_slide_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/hero_slides.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/heroimage_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/heroimage_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/heroimage_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/news_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/news_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/page_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/page_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/page_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/school_info_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/school_settings_edit.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/section_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/section_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/section_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/settings_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/sidebar.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/teacher_confirm_delete.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/teacher_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admin/teacher_list.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/admissions.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/admissions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/class_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/class_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/class_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/classes_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/classes.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/classes.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/crud/news_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/event_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/event_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/event_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/events_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/events.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/events.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/gallery.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/gallery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/gallery_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/gallery_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/includes/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/includes/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/includes/hero_slider.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/includes/hero.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/includes/messages.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/includes/messages.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/includes/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/includes/navbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/news.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/news.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/news_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/news_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/news_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/news_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/teacher_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/teacher_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/teacher_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/teachers_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/templates/school_app/teachers.html" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/templates/school_app/teachers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/school_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/school_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/admin.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/hero-transitions.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/lightbox.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/admin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/hero-transitions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,11 +84,28 @@
       <option name="project" value="LOCAL" />
       <updated>1752151938532</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="school app">
+      <option name="closed" value="true" />
+      <created>1752512697301</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1752512697305</updated>
+    </task>
+    <task id="LOCAL-00003" summary="school app">
+      <option name="closed" value="true" />
+      <created>1752512772620</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1752512772623</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="school app" />
+    <option name="LAST_COMMIT_MESSAGE" value="school app" />
   </component>
 </project>
