@@ -2,12 +2,14 @@ version: '3.8'
 
 services:
   web:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000 --settings=school.settings
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - .:/app
+      - .:/app/myschool
     ports:
       - "8000:8000"
     environment:
+      - PYTHONPATH=/app/myschool:/app
       - DJANGO_SETTINGS_MODULE=school.settings
-      - PYTHONPATH=/app
+    command: python manage.py runserver 0.0.0.0:8000
