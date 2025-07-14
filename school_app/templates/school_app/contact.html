@@ -1,99 +1,135 @@
 {% extends 'school_app/base.html' %}
-{% load crispy_forms_tags %}
+{% load static %}
 
-{% block title %}Contact Us - {{ school_config.name }}{% endblock %}
+{% block title %}Contact Us - {{ school_settings.school_name }}{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section bg-primary text-white py-5">
-    <div class="container py-5">
-        <div class="row py-5">
+<div class="container py-5">
+    <div class="row mb-5">
         <div class="col-lg-8 mx-auto text-center">
-            <h1 class="display-4 fw-bold">Contact Us</h1>
-            <p class="lead mb-0">We'd love to hear from you</p>
-        </div>
+            <h1 class="display-4 mb-3">Contact Us</h1>
+            <p class="lead">We'd love to hear from you</p>
         </div>
     </div>
-</section>
 
-<!-- Contact Form Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mx-auto">
-                <div class="card shadow">
-                    <div class="card-body p-5">
-                        <h2 class="card-title text-center mb-4">Send Us a Message</h2>
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+    <div class="row">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Get in Touch</h2>
+
+                    <div class="contact-info mb-4">
+                        <div class="d-flex mb-3">
+                            <div class="contact-icon me-3">
+                                <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
                             </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                            <div>
+                                <h5>Address</h5>
+                                <p>{{ school_settings.address|default:"Nairobi, Kenya" }}</p>
+                            </div>
+                        </div>
 
-<!-- Contact Info Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 mb-4 mb-md-0">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
-                            <i class="fas fa-map-marker-alt fa-2x"></i>
+                        <div class="d-flex mb-3">
+                            <div class="contact-icon me-3">
+                                <i class="fas fa-phone fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5>Phone</h5>
+                                <p>{{ school_settings.phone|default:"+254 700 000 000" }}</p>
+                            </div>
                         </div>
-                        <h5 class="card-title">Address</h5>
-                        <p class="card-text">{{ school_config.address }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4 mb-md-0">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
-                            <i class="fas fa-phone fa-2x"></i>
-                        </div>
-                        <h5 class="card-title">Phone</h5>
-                        <p class="card-text">{{ school_config.phone }}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center p-4">
-                        <div class="icon-circle bg-primary text-white mb-3 mx-auto">
-                            <i class="fas fa-envelope fa-2x"></i>
-                        </div>
-                        <h5 class="card-title">Email</h5>
-                        <p class="card-text">{{ school_config.email }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Map Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="text-center mb-5">Our Location</h2>
-                {% if school_config.google_map_embed %}
-                <div class="ratio ratio-16x9">
-                    {{ school_config.google_map_embed|safe }}
+                        <div class="d-flex mb-3">
+                            <div class="contact-icon me-3">
+                                <i class="fas fa-envelope fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5>Email</h5>
+                                <p>{{ school_settings.email|default:"info@school.ac.ke" }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-media mb-4">
+                        <h5 class="mb-3">Follow Us</h5>
+                        <div class="d-flex">
+                            <a href="#" class="social-icon me-3">
+                                <i class="fab fa-facebook-f fa-2x"></i>
+                            </a>
+                            <a href="#" class="social-icon me-3">
+                                <i class="fab fa-twitter fa-2x"></i>
+                            </a>
+                            <a href="#" class="social-icon me-3">
+                                <i class="fab fa-instagram fa-2x"></i>
+                            </a>
+                            <a href="#" class="social-icon">
+                                <i class="fab fa-youtube fa-2x"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    {% if school_settings.google_map_embed %}
+                        <div class="map-container mt-4">
+                            {{ school_settings.google_map_embed|safe }}
+                        </div>
+                    {% endif %}
                 </div>
-                {% else %}
-                <p class="text-center">Map not available</p>
-                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Send Us a Message</h2>
+
+                    <form method="post" class="contact-form">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" name="subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</section>
+
+    <!-- Dynamic Sections -->
+    {% for section in sections %}
+        <section class="py-5 my-5" style="background-color: {{ section.background_color }}; border-radius: 10px;">
+            <div class="container">
+                <h2 class="text-center mb-5">{{ section.title }}</h2>
+
+                <div class="row">
+                    {% for subsection in section.subsections.all %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm" style="background-color: {{ subsection.background_color }};">
+                                {% if subsection.image %}
+                                    <img src="{{ subsection.image.url }}" class="card-img-top" alt="{{ subsection.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ subsection.title }}</h5>
+                                    <div class="card-text">{{ subsection.content|safe }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+</div>
 {% endblock %}

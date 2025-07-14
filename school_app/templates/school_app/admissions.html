@@ -1,95 +1,98 @@
 {% extends 'school_app/base.html' %}
 {% load static %}
 
-{% block content %}
-    <!-- Admissions Hero Section -->
-    <section class="page-hero bg-primary text-white py-5">
-        <div class="container">
-            <h1 class="display-4">Admissions</h1>
-            <p class="lead">How to join our school community</p>
-        </div>
-    </section>
+{% block title %}Admissions - {{ school_settings.school_name }}{% endblock %}
 
-    <!-- Content Sections -->
-    {% for section in admissions_sections %}
-        <section class="section-{{ section.color }} py-5">
-            <div class="container">
-                <h2 class="text-center mb-5">{{ section.title }}</h2>
-                <div class="row align-items-center">
-                    {% if section.image_position == 'left' %}
-                        <div class="col-md-6 mb-4 mb-md-0">
-                            {% if section.image %}
-                                <img src="{{ section.image.url }}" alt="{{ section.title }}" class="img-fluid rounded">
-                            {% endif %}
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 mb-3">Admissions</h1>
+            <p class="lead">Join Our Community of Learners</p>
+        </div>
+    </div>
+
+    <!-- Admission Process -->
+    <section class="mb-5">
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title">Admission Process</h2>
+                        <p class="card-text">We welcome applications from students who demonstrate academic potential, good character, and a willingness to contribute to our school community.</p>
+
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-icon bg-primary text-white">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5>Application Submission</h5>
+                                    <p>Submit completed application form with required documents</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-icon bg-success text-white">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5>Assessment & Interview</h5>
+                                    <p>Student assessment and family interview scheduled</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-icon bg-info text-white">
+                                    <i class="fas fa-envelope-open-text"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5>Admission Decision</h5>
+                                    <p>Notification of admission decision within 2 weeks</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-icon bg-warning text-white">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h5>Registration & Fee Payment</h5>
+                                    <p>Complete registration process and pay required fees</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            {{ section.content|safe }}
-                        </div>
-                    {% else %}
-                        <div class="col-md-6 order-md-2 mb-4 mb-md-0">
-                            {% if section.image %}
-                                <img src="{{ section.image.url }}" alt="{{ section.title }}" class="img-fluid rounded">
-                            {% endif %}
-                        </div>
-                        <div class="col-md-6 order-md-1">
-                            {{ section.content|safe }}
-                        </div>
-                    {% endif %}
+                    </div>
                 </div>
             </div>
-        </section>
-    {% endfor %}
-
-    <!-- Admission Process Section -->
-    <section class="bg-light py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Admission Process</h2>
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-icon bg-primary text-white">
-                                <i class="fas fa-file-alt"></i>
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="card-title">Requirements</h2>
+                        <div class="admission-requirements">
+                            <div class="requirement-item">
+                                <h5><i class="fas fa-child me-2"></i> Kindergarten</h5>
+                                <ul>
+                                    <li>Completed application form</li>
+                                    <li>Birth certificate</li>
+                                    <li>2 passport photos</li>
+                                    <li>Medical report</li>
+                                </ul>
                             </div>
-                            <div class="timeline-content">
-                                <h4>Application Submission</h4>
-                                <p>Complete and submit the application form along with required documents.</p>
+                            <div class="requirement-item">
+                                <h5><i class="fas fa-user-graduate me-2"></i> Primary School</h5>
+                                <ul>
+                                    <li>Completed application form</li>
+                                    <li>Birth certificate</li>
+                                    <li>Previous school reports</li>
+                                    <li>Transfer letter (if applicable)</li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon bg-primary text-white">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <h4>Assessment</h4>
-                                <p>Student assessment and interview with school administration.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon bg-primary text-white">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <h4>Admission Decision</h4>
-                                <p>Notification of admission decision within two weeks of assessment.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon bg-primary text-white">
-                                <i class="fas fa-money-bill-wave"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <h4>Fee Payment</h4>
-                                <p>Payment of required fees to secure admission.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon bg-primary text-white">
-                                <i class="fas fa-user-graduate"></i>
-                            </div>
-                            <div class="timeline-content">
-                                <h4>Orientation</h4>
-                                <p>New student and parent orientation before school starts.</p>
+                            <div class="requirement-item">
+                                <h5><i class="fas fa-graduation-cap me-2"></i> Secondary School</h5>
+                                <ul>
+                                    <li>Completed application form</li>
+                                    <li>KCPE results slip</li>
+                                    <li>Birth certificate</li>
+                                    <li>Previous school reports</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -97,4 +100,41 @@
             </div>
         </div>
     </section>
+
+    <!-- Dynamic Sections -->
+    {% for section in sections %}
+        <section class="py-5 mb-5" style="background-color: {{ section.background_color }}; border-radius: 10px;">
+            <div class="container">
+                <h2 class="text-center mb-5">{{ section.title }}</h2>
+
+                <div class="row">
+                    {% for subsection in section.subsections.all %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm" style="background-color: {{ subsection.background_color }};">
+                                {% if subsection.image %}
+                                    <img src="{{ subsection.image.url }}" class="card-img-top" alt="{{ subsection.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ subsection.title }}</h5>
+                                    <div class="card-text">{{ subsection.content|safe }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+
+    <!-- Fee Information -->
+    <section class="mb-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title">Fee Information</h2>
+                <p class="card-text">For detailed information about our fee structure, please visit our <a href="{% url 'fees' %}">Fees page</a> or contact the admissions office.</p>
+                <a href="{% url 'fees' %}" class="btn btn-primary">View Fee Structure</a>
+            </div>
+        </div>
+    </section>
+</div>
 {% endblock %}

@@ -1,68 +1,105 @@
 {% extends 'school_app/base.html' %}
 {% load static %}
 
-{% block content %}
-    <!-- Academics Hero Section -->
-    <section class="page-hero bg-primary text-white py-5">
-        <div class="container">
-            <h1 class="display-4">Academics</h1>
-            <p class="lead">Our curriculum, classes, and academic programs</p>
-        </div>
-    </section>
+{% block title %}Academics - {{ school_settings.school_name }}{% endblock %}
 
-    <!-- Content Sections -->
-    {% for section in academics_sections %}
-        <section class="section-{{ section.color }} py-5">
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 mb-3">Academics</h1>
+            <p class="lead">Excellence in Teaching and Learning</p>
+        </div>
+    </div>
+
+    <!-- Dynamic Sections -->
+    {% for section in sections %}
+        <section class="py-5 mb-5" style="background-color: {{ section.background_color }}; border-radius: 10px;">
             <div class="container">
                 <h2 class="text-center mb-5">{{ section.title }}</h2>
-                <div class="row align-items-center">
-                    {% if section.image_position == 'left' %}
-                        <div class="col-md-6 mb-4 mb-md-0">
-                            {% if section.image %}
-                                <img src="{{ section.image.url }}" alt="{{ section.title }}" class="img-fluid rounded">
-                            {% endif %}
+
+                <div class="row">
+                    {% for subsection in section.subsections.all %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm" style="background-color: {{ subsection.background_color }};">
+                                {% if subsection.image %}
+                                    <img src="{{ subsection.image.url }}" class="card-img-top" alt="{{ subsection.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ subsection.title }}</h5>
+                                    <div class="card-text">{{ subsection.content|safe }}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            {{ section.content|safe }}
-                        </div>
-                    {% else %}
-                        <div class="col-md-6 order-md-2 mb-4 mb-md-0">
-                            {% if section.image %}
-                                <img src="{{ section.image.url }}" alt="{{ section.title }}" class="img-fluid rounded">
-                            {% endif %}
-                        </div>
-                        <div class="col-md-6 order-md-1">
-                            {{ section.content|safe }}
-                        </div>
-                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
         </section>
     {% endfor %}
 
-    <!-- Classes Section -->
-    <section class="bg-light py-5">
-        <div class="container">
-            <h2 class="text-center mb-5">Our Classes</h2>
-            <div class="row">
-                {% for class in classes %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            {% if class.image %}
-                                <img src="{{ class.image.url }}" class="card-img-top" alt="{{ class.name }}">
-                            {% else %}
-                                <img src="{% static 'school_app/images/class-placeholder.jpg' %}" class="card-img-top" alt="Class placeholder">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title">{{ class.name }}</h5>
-                                {% if class.description %}
-                                    <p class="card-text">{{ class.description }}</p>
-                                {% endif %}
+    <!-- Curriculum and Programs -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title"><i class="fas fa-book-open me-2"></i> Curriculum</h3>
+                    <p class="card-text">Our school follows the Kenyan Competency-Based Curriculum (CBC) and 8-4-4 system, ensuring our students receive a well-rounded education that prepares them for the challenges of the 21st century.</p>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Early Years Education (PP1-PP2)</li>
+                        <li class="list-group-item">Lower Primary (Grade 1-3)</li>
+                        <li class="list-group-item">Upper Primary (Grade 4-6)</li>
+                        <li class="list-group-item">Junior Secondary (Grade 7-9)</li>
+                        <li class="list-group-item">Senior Secondary (Grade 10-12)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title"><i class="fas fa-graduation-cap me-2"></i> Academic Programs</h3>
+                    <p class="card-text">We offer a variety of academic programs to cater to the diverse needs and talents of our students:</p>
+                    <div class="accordion" id="programsAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Core Academic Subjects
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#programsAccordion">
+                                <div class="accordion-body">
+                                    Mathematics, English, Kiswahili, Sciences, Humanities, and Languages
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    STEM Program
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#programsAccordion">
+                                <div class="accordion-body">
+                                    Specialized Science, Technology, Engineering, and Mathematics program with advanced labs and projects
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Arts and Creativity
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#programsAccordion">
+                                <div class="accordion-body">
+                                    Music, Drama, Visual Arts, and Creative Writing programs
+                                </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</div>
 {% endblock %}

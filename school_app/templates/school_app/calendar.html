@@ -1,0 +1,94 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}School Calendar - {{ school_settings.school_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 mb-3">School Calendar</h1>
+            <p class="lead">Important dates and academic schedules</p>
+        </div>
+    </div>
+
+    <!-- Calendar Downloads -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Academic Year Calendars</h2>
+
+                    {% if calendars %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Year</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for calendar in calendars %}
+                                        <tr>
+                                            <td>{{ calendar.title }}</td>
+                                            <td>{{ calendar.year }}</td>
+                                            <td>
+                                                <a href="{{ calendar.calendar_file.url }}" class="btn btn-sm btn-outline-primary" download>
+                                                    <i class="fas fa-download me-2"></i> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">No calendar files available at the moment.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Events -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Upcoming Events</h2>
+
+                    {% if upcoming_events %}
+                        <div class="row">
+                            {% for event in upcoming_events %}
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <h3 class="card-title mb-0">{{ event.title }}</h3>
+                                                <span class="badge bg-primary">{{ event.date|date:"M d" }}</span>
+                                            </div>
+                                            <p class="card-text">{{ event.description|striptags|truncatewords:20 }}</p>
+                                            <div class="event-meta">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-clock me-1"></i> {{ event.time|time:"g:i A"|default:"All Day" }}
+                                                </small>
+                                                <small class="text-muted ms-3">
+                                                    <i class="fas fa-map-marker-alt me-1"></i> {{ event.location }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">No upcoming events scheduled.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

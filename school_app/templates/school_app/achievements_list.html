@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Achievements List Hero -->
+<section class="achievements-hero py-5" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static 'images/achievements-bg.jpg' %}') no-repeat center center; background-size: cover;">
+    <div class="container text-center text-white py-5">
+        <h1 class="display-4">Our Achievements</h1>
+        <p class="lead">Celebrating our successes and milestones</p>
+    </div>
+</section>
+
+<!-- Achievements List -->
+<section class="achievements-list-section py-5">
+    <div class="container">
+        <div class="row">
+            {% for achievement in achievements %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card achievement-card h-100">
+                    {% if achievement.image %}
+                    <img src="{{ achievement.image.url }}" class="card-img-top" alt="{{ achievement.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ achievement.title }}</h5>
+                        <p class="card-text">{{ achievement.description|safe|truncatewords:20 }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <small class="text-muted">{{ achievement.date_achieved|date:"M d, Y" }}</small>
+                        <a href="{% url 'achievement_detail' achievement.pk %}" class="btn btn-sm btn-outline-primary float-end">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">No achievements to display at the moment.</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

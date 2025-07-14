@@ -1,42 +1,44 @@
-<footer class="footer py-4" style="background-color: {{ school_config.footer_color }};">
+<footer class="footer py-4 mt-5">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4 mb-md-0">
-                <h5 class="text-white">{{ school_config.name }}</h5>
-                <p class="text-muted">{{ school_config.motto }}</p>
-                <div class="social-icons">
-                    <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
-                </div>
+                <h5>About Us</h5>
+                <p>{{ school_settings.motto|default:"Striving for Excellence" }}</p>
+                <p>{{ school_settings.aim|truncatewords:20 }}</p>
             </div>
+
             <div class="col-md-4 mb-4 mb-md-0">
-                <h5 class="text-white">Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{% url 'home' %}" class="text-muted">Home</a></li>
-                    <li><a href="{% url 'about' %}" class="text-muted">About Us</a></li>
-                    <li><a href="{% url 'news-list' %}" class="text-muted">News</a></li>
-                    <li><a href="{% url 'event-list' %}" class="text-muted">Events</a></li>
-                    <li><a href="{% url 'contact' %}" class="text-muted">Contact</a></li>
-                </ul>
+                <h5>Contact Information</h5>
+                <p><i class="fas fa-map-marker-alt me-2"></i> {{ school_settings.address|default:"Nairobi, Kenya" }}</p>
+                <p><i class="fas fa-phone me-2"></i> {{ school_settings.phone|default:"+254 700 000 000" }}</p>
+                <p><i class="fas fa-envelope me-2"></i> {{ school_settings.email|default:"info@school.ac.ke" }}</p>
             </div>
+
             <div class="col-md-4">
-                <h5 class="text-white">Contact Us</h5>
-                <ul class="list-unstyled text-muted">
-                    <li><i class="fas fa-map-marker-alt me-2"></i> {{ school_config.address }}</li>
-                    <li><i class="fas fa-phone me-2"></i> {{ school_config.phone }}</li>
-                    <li><i class="fas fa-envelope me-2"></i> {{ school_config.email }}</li>
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'home' %}"><i class="fas fa-angle-right me-2"></i> Home</a></li>
+                    <li><a href="{% url 'about' %}"><i class="fas fa-angle-right me-2"></i> About Us</a></li>
+                    <li><a href="{% url 'admissions' %}"><i class="fas fa-angle-right me-2"></i> Admissions</a></li>
+                    <li><a href="{% url 'calendar' %}"><i class="fas fa-angle-right me-2"></i> School Calendar</a></li>
+                    <li><a href="{% url 'fees' %}"><i class="fas fa-angle-right me-2"></i> Fee Structure</a></li>
                 </ul>
             </div>
         </div>
-        <hr class="my-4 bg-light">
-        <div class="row">
-            <div class="col-md-6 text-center text-md-start">
-                <p class="text-muted mb-0">&copy; {% now "Y" %} {{ school_config.name }}. All rights reserved.</p>
+
+        <hr class="my-4">
+
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="mb-0">&copy; {% now "Y" %} {{ school_settings.school_name|default:"Kenyan Excellence Academy" }}. All rights reserved.</p>
             </div>
-            <div class="col-md-6 text-center text-md-end">
-                <p class="text-muted mb-0">Designed with <i class="fas fa-heart text-danger"></i> by {{ school_config.name }}</p>
+            <div class="col-md-6 text-md-end">
+                <div class="social-links">
+                    <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="me-2"><i class="fab fa-linkedin-in"></i></a>
+                </div>
             </div>
         </div>
     </div>

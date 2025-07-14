@@ -1,21 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'school_app/base.html' %}
 {% load static %}
 
-{% block title %}{{ page.title }} - {{ school.school_name }}{% endblock %}
-
 {% block content %}
+<!-- Page Hero Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h1 class="display-4">{{ page.title }}</h1>
+    </div>
+</section>
+
+<!-- Page Content Section -->
 <section class="py-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <article class="page-content">
-                    <header class="mb-4">
-                        <h1 class="fw-bold mb-3">{{ page.title }}</h1>
-                    </header>
-
-                    <div class="page-body">
-                        {{ page.content|safe }}
-                    </div>
+                    {{ page.content|safe }}
                 </article>
             </div>
         </div>

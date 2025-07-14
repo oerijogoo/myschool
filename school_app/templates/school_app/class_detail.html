@@ -1,32 +1,44 @@
-{% extends 'base.html' %}
+{% extends 'school_app/base.html' %}
 {% load static %}
 
-{% block title %}{{ class.name }} - {{ school.school_name }}{% endblock %}
+{% block title %}{{ class.name }}{% endblock %}
 
 {% block content %}
-<section class="py-5">
+<section class="class-detail-section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <article class="class-article">
-                    <header class="mb-4 text-center">
-                        <h1 class="fw-bold mb-3">{{ class.name }}</h1>
-                        {% if class.image %}
-                            <img src="{{ class.image.url }}" alt="{{ class.name }}" class="img-fluid rounded mb-4" style="max-height: 400px;">
-                        {% endif %}
-                    </header>
-
-                    <div class="class-content">
-                        {{ class.description|safe }}
-                    </div>
-
-                    <footer class="mt-5 pt-4 border-top text-center">
-                        <a href="{% url 'class-list' %}" class="btn btn-outline-primary">
-                            <i class="fas fa-arrow-left me-2"></i> Back to Classes
-                        </a>
-                    </footer>
-                </article>
+        <div class="class-profile">
+            <div class="class-header">
+                <h1>{{ class.name }}</h1>
+                <p class="room-number">Room: {{ class.room_number }}</p>
             </div>
+
+            <div class="class-details">
+                <div class="detail-item">
+                    <h3>Class Teacher</h3>
+                    {% if class.teacher %}
+                    <div class="teacher-info">
+                        <a href="{% url 'teacher_detail' class.teacher.pk %}">{{ class.teacher.name }}</a>
+                        <p>{{ class.teacher.position }}</p>
+                    </div>
+                    {% else %}
+                    <p>Not assigned</p>
+                    {% endif %}
+                </div>
+
+                <div class="detail-item">
+                    <h3>Schedule</h3>
+                    <p>{{ class.schedule }}</p>
+                </div>
+            </div>
+
+            <div class="class-description">
+                <h3>Class Description</h3>
+                {{ class.description|safe }}
+            </div>
+        </div>
+
+        <div class="class-navigation">
+            <a href="{% url 'classes' %}" class="btn-back">Back to Classes</a>
         </div>
     </div>
 </section>

@@ -1,220 +1,131 @@
-<!-- templates/school_app/home.html -->
-
-{% extends 'base.html' %}
+{% extends 'school_app/base.html' %}
 {% load static %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/hero-transitions.css' %}">
+{% block title %}Home - {{ school_settings.school_name }}{% endblock %}
+
+{% block hero %}
+    {% include 'school_app/includes/hero.html' %}
 {% endblock %}
 
 {% block content %}
-<!-- Hero Section with Image Transitions -->
-<section class="hero-section">
-    <div class="hero-slider">
-        {% for hero in hero_images %}
-            <div class="hero-slide {% if forloop.first %}active{% endif %}"
-                 data-transition="{{ hero.transition_effect }}"
-                 style="background-image: url('{{ hero.image.url }}');">
-                <div class="hero-overlay"></div>
-                <div class="container hero-content">
-                    <h1>{{ hero.title }}</h1>
-                    {% if hero.subtitle %}
-                        <p class="lead">{{ hero.subtitle }}</p>
-                    {% endif %}
-                    {% if hero.button_text and hero.button_url %}
-                        <a href="{{ hero.button_url }}" class="btn btn-primary btn-lg mt-3">{{ hero.button_text }}</a>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-    {% if hero_images|length > 1 %}
-        <div class="hero-controls">
-            <button class="hero-prev"><i class="fas fa-chevron-left"></i></button>
-            <button class="hero-next"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="hero-indicators">
-            {% for hero in hero_images %}
-                <button class="hero-indicator {% if forloop.first %}active{% endif %}" data-slide="{{ forloop.counter0 }}"></button>
-            {% endfor %}
-        </div>
-    {% endif %}
-</section>
-
-<!-- Welcome Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h2 class="display-4">Welcome to {{ school.school_name }}</h2>
-                <p class="lead">{{ school.motto }}</p>
-                <p>{{ school.aim|safe|truncatewords:50 }}</p>
-                <a href="{% url 'page-detail' 'about' %}" class="btn btn-primary">Learn More</a>
-            </div>
-            <div class="col-lg-6">
-                {% if school.logo %}
-                    <img src="{{ school.logo.url }}" alt="{{ school.school_name }}" class="img-fluid rounded shadow">
-                {% endif %}
-            </div>
+<div class="container mt-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h2 class="display-4 mb-3">Welcome to {{ school_settings.school_name }}</h2>
+            <p class="lead">{{ school_settings.motto }}</p>
         </div>
     </div>
-</section>
 
-<!-- News Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="section-header mb-5">
-            <h2 class="section-title">Latest News</h2>
-            <a href="{% url 'news-list' %}" class="btn btn-outline-primary">View All News</a>
+    <!-- News Section -->
+    <section class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Latest News</h2>
+            <a href="{% url 'news' %}" class="btn btn-outline-primary">View All News</a>
         </div>
+
         <div class="row">
             {% for item in news %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 news-card">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card h-100 shadow-sm">
                         {% if item.image %}
                             <img src="{{ item.image.url }}" class="card-img-top" alt="{{ item.title }}">
+                        {% else %}
+                            <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 150px;">
+                                <i class="fas fa-newspaper fa-3x text-white"></i>
+                            </div>
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ item.title }}</h5>
-                            <p class="card-text">{{ item.content|striptags|truncatewords:20 }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{ item.date_posted|date:"M d, Y" }}</small>
-                                <a href="{% url 'news-detail' item.pk %}" class="btn btn-sm btn-primary">Read More</a>
+                            <p class="card-text">{{ item.content|striptags|truncatewords:15 }}</p>
+                        </div>
+                        <div class="card-footer bg-white border-0">
+                            <small class="text-muted">{{ item.created_at|date:"M d, Y" }}</small>
+                            <a href="{% url 'news_detail' item.id %}" class="btn btn-sm btn-outline-primary float-end">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Dynamic Sections -->
+    {% for section in sections %}
+        <section class="py-5" style="background-color: {{ section.background_color }}; border-radius: 10px;">
+            <div class="container">
+                <h2 class="text-center mb-5">{{ section.title }}</h2>
+
+                <div class="row">
+                    {% for subsection in section.subsections.all %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm" style="background-color: {{ subsection.background_color }};">
+                                {% if subsection.image %}
+                                    <img src="{{ subsection.image.url }}" class="card-img-top" alt="{{ subsection.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ subsection.title }}</h5>
+                                    <div class="card-text">{{ subsection.content|safe }}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
+            </div>
+        </section>
+    {% endfor %}
 
-<!-- Upcoming Events -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="section-header mb-5">
-            <h2 class="section-title">Upcoming Events</h2>
-            <a href="{% url 'event-list' %}" class="btn btn-outline-primary">View All Events</a>
-        </div>
-        <div class="row">
-            {% for event in events %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 event-card">
-                        {% if event.image %}
-                            <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ event.title }}</h5>
-                            <p class="card-text">{{ event.description|striptags|truncatewords:15 }}</p>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <i class="far fa-calendar-alt me-2"></i>
-                                    {{ event.start_date|date:"M d, Y" }} - {{ event.end_date|date:"M d, Y" }}
-                                </li>
-                                <li class="list-group-item">
-                                    <i class="fas fa-map-marker-alt me-2"></i>
-                                    {{ event.location }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <a href="{% url 'event-detail' event.pk %}" class="btn btn-primary">Details</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
+    <!-- Events and Achievements -->
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">Upcoming Events</h2>
+                <a href="{% url 'events' %}" class="btn btn-outline-primary">View All Events</a>
+            </div>
 
-<!-- Achievements -->
-<section class="py-5">
-    <div class="container">
-        <div class="section-header mb-5">
-            <h2 class="section-title">Our Achievements</h2>
-            <a href="{% url 'achievement-list' %}" class="btn btn-outline-primary">View All Achievements</a>
-        </div>
-        <div class="row">
-            {% for achievement in achievements %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100 achievement-card">
-                        {% if achievement.image %}
-                            <img src="{{ achievement.image.url }}" class="card-img-top" alt="{{ achievement.title }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ achievement.title }}</h5>
-                            <p class="card-text">{{ achievement.description|striptags|truncatewords:20 }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{ achievement.date_achieved|date:"M d, Y" }}</small>
-                                <a href="{% url 'achievement-detail' achievement.pk %}" class="btn btn-sm btn-primary">Read More</a>
-                            </div>
+            <div class="list-group">
+                {% for event in events %}
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ event.title }}</h5>
+                            <small>{{ event.date|date:"M d" }}</small>
                         </div>
-                    </div>
-                </div>
-            {% endfor %}
+                        <p class="mb-1">{{ event.description|striptags|truncatewords:10 }}</p>
+                        <small>{{ event.location }}</small>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
-    </div>
-</section>
 
-<!-- Featured Teachers -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="section-header mb-5">
-            <h2 class="section-title">Our Teachers</h2>
-            <a href="{% url 'teacher-list' %}" class="btn btn-outline-primary">Meet All Teachers</a>
-        </div>
-        <div class="row">
-            {% for teacher in teachers %}
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100 teacher-card text-center">
-                        <div class="teacher-image-container">
-                            {% if teacher.image %}
-                                <img src="{{ teacher.image.url }}" class="card-img-top rounded-circle" alt="{{ teacher.name }}">
-                            {% endif %}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ teacher.name }}</h5>
-                            <p class="card-subtitle mb-2 text-muted">{{ teacher.position }}</p>
-                            <p class="card-text">{{ teacher.subjects }}</p>
-                        </div>
-                        <div class="card-footer bg-transparent">
-                            <a href="{% url 'teacher-detail' teacher.pk %}" class="btn btn-sm btn-outline-primary">View Profile</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
+        <div class="col-md-6">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">Recent Achievements</h2>
+                <a href="{% url 'achievements' %}" class="btn btn-outline-primary">View All Achievements</a>
+            </div>
 
-<!-- Adverts Section -->
-{% if adverts %}
-    <section class="py-5">
-        <div class="container">
             <div class="row">
-                {% for advert in adverts %}
-                    <div class="col-md-6 mb-4">
-                        <div class="card advert-card h-100">
-                            {% if advert.image %}
-                                <img src="{{ advert.image.url }}" class="card-img-top" alt="{{ advert.title }}">
-                            {% endif %}
-                            <div class="card-body">
-                                <h5 class="card-title">{{ advert.title }}</h5>
-                                <div class="card-text">{{ advert.content|safe }}</div>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <small class="text-muted">Valid until: {{ advert.end_date|date:"M d, Y" }}</small>
+                {% for achievement in achievements %}
+                    <div class="col-12 mb-3">
+                        <div class="card">
+                            <div class="row g-0">
+                                {% if achievement.image %}
+                                    <div class="col-md-4">
+                                        <img src="{{ achievement.image.url }}" class="img-fluid rounded-start" alt="{{ achievement.title }}">
+                                    </div>
+                                {% endif %}
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ achievement.title }}</h5>
+                                        <p class="card-text">{{ achievement.description|striptags|truncatewords:15 }}</p>
+                                        <p class="card-text">
+                                            <small class="text-muted">{{ achievement.date_achieved|date:"M d, Y" }}</small>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
-    </section>
-{% endif %}
-
-{% endblock %}
-
-{% block extra_js %}
-<script src="{% static 'js/hero-transitions.js' %}"></script>
+    </div>
+</div>
 {% endblock %}

@@ -1,41 +1,61 @@
-{% extends 'base.html' %}
+{% extends "school_app/base.html" %}
 {% load static %}
 
-{% block title %}{{ event.title }} - {{ school.school_name }}{% endblock %}
+{% block title %}{{ event.title }}{% endblock %}
 
 {% block content %}
-<section class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <article class="event-article">
-                    <header class="mb-4">
-                        <h1 class="fw-bold mb-3">{{ event.title }}</h1>
-                        <div class="text-muted mb-3">
-                            <i class="far fa-calendar-alt me-2"></i>
-                            {{ event.start_date|date:"F j, Y" }} - {{ event.end_date|date:"F j, Y" }}
-                        </div>
-                        <div class="text-muted mb-3">
-                            <i class="fas fa-map-marker-alt me-2"></i>
-                            {{ event.location }}
-                        </div>
-                        {% if event.image %}
-                            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="img-fluid rounded mb-4">
-                        {% endif %}
-                    </header>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- Event Details -->
+            <div class="card mb-4">
+                {% if event.image %}
+                    <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h1 class="card-title mb-3">{{ event.title }}</h1>
+                    <div class="event-meta mb-4">
+                        <p class="mb-1"><i class="bi bi-calendar"></i> <strong>Date:</strong> {{ event.date|date:"F d, Y" }}</p>
+                        <p class="mb-1"><i class="bi bi-clock"></i> <strong>Time:</strong> {{ event.date|time:"H:i" }}</p>
+                        <p class="mb-0"><i class="bi bi-geo-alt"></i> <strong>Venue:</strong> {{ event.venue }}</p>
+                    </div>
 
-                    <div class="event-content">
+                    <div class="event-description">
                         {{ event.description|safe }}
                     </div>
 
-                    <footer class="mt-5 pt-4 border-top">
-                        <a href="{% url 'event-list' %}" class="btn btn-outline-primary">
-                            <i class="fas fa-arrow-left me-2"></i> Back to Events
+                    <div class="mt-4">
+                        <a href="{% url 'school_app:events' %}" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-left"></i> Back to Events
                         </a>
-                    </footer>
-                </article>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Events -->
+            <div class="mt-5">
+                <h3 class="mb-4">Related Events</h3>
+                <div class="row">
+                    {% for related_event in related_events|slice:":3" %}
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100">
+                                {% if related_event.image %}
+                                    <img src="{{ related_event.image.url }}" class="card-img-top" alt="{{ related_event.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ related_event.title }}</h5>
+                                    <p class="card-text small">
+                                        <i class="bi bi-calendar"></i> {{ related_event.date|date:"M d" }}
+                                        <i class="bi bi-geo-alt ms-2"></i> {{ related_event.venue }}
+                                    </p>
+                                    <a href="{% url 'school_app:event_detail' related_event.id %}" class="btn btn-sm btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-</section>
+</div>
 {% endblock %}

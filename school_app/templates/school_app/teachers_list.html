@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Teachers List Hero -->
+<section class="teachers-hero py-5" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static 'images/teachers-bg.jpg' %}') no-repeat center center; background-size: cover;">
+    <div class="container text-center text-white py-5">
+        <h1 class="display-4">Our Teachers</h1>
+        <p class="lead">Meet our dedicated teaching staff</p>
+    </div>
+</section>
+
+<!-- Teachers List -->
+<section class="teachers-list-section py-5">
+    <div class="container">
+        <div class="row">
+            {% for teacher in teachers %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card teacher-card h-100">
+                    {% if teacher.photo %}
+                    <img src="{{ teacher.photo.url }}" class="card-img-top rounded-circle mx-auto mt-3" alt="{{ teacher.name }}" style="width: 150px; height: 150px; object-fit: cover;">
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-user-circle fa-5x text-secondary"></i>
+                    </div>
+                    {% endif %}
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ teacher.name }}</h5>
+                        <p class="card-subtitle mb-2 text-muted">{{ teacher.position }}</p>
+                        {% if teacher.department %}
+                        <p class="card-text"><small class="text-muted">{{ teacher.department }}</small></p>
+                        {% endif %}
+                        <button class="btn btn-sm btn-outline-primary mt-2" data-bs-toggle="modal" data-bs-target="#teacherModal{{ teacher.id }}">
+                            View Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teacher Modal -->
+            <div class="modal fade" id="teacherModal{{ teacher.id }}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ teacher.name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4 text-center">
+                                    {% if teacher.photo %}
+                                    <img src="{{ teacher.photo.url }}" class="img-fluid rounded-circle mb-3" alt="{{ teacher.name }}" style="width: 150px; height: 150px; object-fit: cover;">
+                                    {% else %}
+                                    <i class="fas fa-user-circle fa-5x text-secondary mb-3"></i>
+                                    {% endif %}
+                                    <h5>{{ teacher.position }}</h5>
+                                    {% if teacher.department %}
+                                    <p class="text-muted">{{ teacher.department }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-8">
+                                    <h6>About</h6>
+                                    {% if teacher.bio %}
+                                    {{ teacher.bio|safe }}
+                                    {% else %}
+                                    <p>No bio available.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">No teachers information available at the moment.</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Classes List Hero -->
+<section class="classes-hero py-5" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('{% static 'images/classes-bg.jpg' %}') no-repeat center center; background-size: cover;">
+    <div class="container text-center text-white py-5">
+        <h1 class="display-4">Our Classes</h1>
+        <p class="lead">Explore our academic programs and classes</p>
+    </div>
+</section>
+
+<!-- Classes List -->
+<section class="classes-list-section py-5">
+    <div class="container">
+        <div class="row">
+            {% for class in classes %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card class-card h-100">
+                    {% if class.class_photo %}
+                    <img src="{{ class.class_photo.url }}" class="card-img-top" alt="{{ class.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ class.name }}</h5>
+                        <p class="card-text">{{ class.description|safe|truncatewords:20 }}</p>
+                        <ul class="list-group list-group-flush">
+                            {% if class.class_teacher %}
+                            <li class="list-group-item">
+                                <i class="fas fa-chalkboard-teacher me-2"></i> {{ class.class_teacher }}
+                            </li>
+                            {% endif %}
+                            {% if class.class_prefect %}
+                            <li class="list-group-item">
+                                <i class="fas fa-user-graduate me-2"></i> {{ class.class_prefect }}
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">No classes information available at the moment.</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

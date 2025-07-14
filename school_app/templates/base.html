@@ -1,172 +1,36 @@
-<!-- templates/base.html -->
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ school.school_name }}{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    {% block extra_css %}{% endblock %}
+    <title>{{ school_settings.school_name }} - {% block title %}{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family={{ school_settings.font_family|urlencode }}:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'school_app/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'school_app/css/transitions.css' %}">
+    <style>
+        :root {
+            --primary-color: {{ school_settings.primary_color }};
+            --secondary-color: {{ school_settings.secondary_color }};
+            --font-color: {{ school_settings.font_color }};
+            --font-family: '{{ school_settings.font_family }}', sans-serif;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: {{ school.navbar_color }};">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'home' %}">
-                {% if school.logo %}
-                    <img src="{{ school.logo.url }}" alt="{{ school.school_name }}" class="rounded-circle me-2" width="40" height="40">
-                {% endif %}
-                {{ school.school_name }}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown">
-                            About Us
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'page-detail' 'history' %}">History</a></li>
-                            <li><a class="dropdown-item" href="{% url 'page-detail' 'mission-vision' %}">Mission & Vision</a></li>
-                            <li><a class="dropdown-item" href="{% url 'page-detail' 'administration' %}">Administration</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'news-list' %}">News</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'event-list' %}">Events</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="academicsDropdown" role="button" data-bs-toggle="dropdown">
-                            Academics
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'class-list' %}">Classes</a></li>
-                            <li><a class="dropdown-item" href="{% url 'teacher-list' %}">Teachers</a></li>
-                            <li><a class="dropdown-item" href="{% url 'page-detail' 'curriculum' %}">Curriculum</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'achievement-list' %}">Achievements</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
-                    </li>
-                    {% for page in menu_pages %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'page-detail' page.slug %}">{{ page.title }}</a>
-                        </li>
-                    {% endfor %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'page-detail' 'contact' %}">Contact</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <img src="{% static 'img/kenya-flag.png' %}" alt="Kenya Flag" width="30" class="me-2">
-                </div>
-            </div>
-        </div>
-    </nav>
+    {% include 'school_app/includes/navbar.html' %}
 
-    <!-- Main Content -->
     <main>
+        {% block hero %}{% endblock %}
+
+        {% include 'school_app/includes/messages.html' %}
+
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="footer py-3" style="background-color: {{ school.footer_color }};">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>{{ school.school_name }}</h5>
-                    <p>{{ school.motto }}</p>
-                    <p>{{ school.address }}</p>
-                    <p>Phone: {{ school.phone }}</p>
-                    <p>Email: {{ school.email }}</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="{% url 'home' %}">Home</a></li>
-                        <li><a href="{% url 'news-list' %}">News</a></li>
-                        <li><a href="{% url 'event-list' %}">Events</a></li>
-                        <li><a href="{% url 'class-list' %}">Classes</a></li>
-                        <li><a href="{% url 'page-detail' 'contact' %}">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Connect With Us</h5>
-                    <div class="social-links">
-                        {% if school.facebook_url %}
-                            <a href="{{ school.facebook_url }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        {% endif %}
-                        {% if school.twitter_url %}
-                            <a href="{{ school.twitter_url }}" target="_blank"><i class="fab fa-twitter"></i></a>
-                        {% endif %}
-                        {% if school.instagram_url %}
-                            <a href="{{ school.instagram_url }}" target="_blank"><i class="fab fa-instagram"></i></a>
-                        {% endif %}
-                        {% if school.youtube_url %}
-                            <a href="{{ school.youtube_url }}" target="_blank"><i class="fab fa-youtube"></i></a>
-                        {% endif %}
-                    </div>
-                    <div class="mt-3">
-                        {{ school.map_embed_code|safe }}
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="text-center">
-                <p class="mb-0">&copy; {% now "Y" %} {{ school.school_name }}. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    {% include 'school_app/includes/footer.html' %}
 
-    <!-- Popup Adverts -->
-    {% for advert in popup_adverts %}
-        <div class="modal fade" id="advertModal{{ advert.id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">{{ advert.title }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        {% if advert.image %}
-                            <img src="{{ advert.image.url }}" alt="{{ advert.title }}" class="img-fluid mb-3">
-                        {% endif %}
-                        {{ advert.content|safe }}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    {% block extra_js %}{% endblock %}
-
-    <script>
-        // Show popup adverts
-        document.addEventListener('DOMContentLoaded', function() {
-            {% for advert in popup_adverts %}
-                var advertModal = new bootstrap.Modal(document.getElementById('advertModal{{ advert.id }}'));
-                advertModal.show();
-            {% endfor %}
-        });
-    </script>
+    <script src="{% static 'school_app/js/main.js' %}"></script>
+    <script src="{% static 'school_app/js/transitions.js' %}"></script>
 </body>
 </html>

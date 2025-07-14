@@ -1,0 +1,407 @@
+/* Base Styles */
+body {
+    font-family: var(--body-font);
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+/* Hero Section */
+.carousel-item {
+    height: 600px;
+    overflow: hidden;
+}
+
+.carousel-item img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Sections */
+.section-title {
+    position: relative;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70px;
+    height: 3px;
+    background-color: #006600;
+}
+
+/* Footer */
+.footer {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+.footer h5 {
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.footer h5::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+.social-links a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background-color: white;
+    color: var(--footer-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 400px;
+    }
+
+    .navbar-brand strong {
+        font-size: 0.9rem;
+    }
+
+    .navbar-brand small {
+        font-size: 0.7rem;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-item {
+        height: 300px;
+    }
+
+    .navbar-brand img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+
+
+/* About Page Styles */
+.about-content {
+    line-height: 1.8;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 50px;
+    margin-top: 30px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #006600;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: -50px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeline-content {
+    padding: 15px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Academics Page Styles */
+.program-card {
+    transition: all 0.3s ease;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Admissions Page Styles */
+.admission-requirements .requirement-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.admission-requirements .requirement-item:last-child {
+    border-bottom: none;
+}
+
+/* News Page Styles */
+.news-article img {
+    max-height: 500px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.news-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.social-share a {
+    transition: all 0.3s ease;
+}
+
+.social-share a:hover {
+    transform: translateY(-3px);
+}
+
+/* Events Page Styles */
+.event-meta {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Gallery Page Styles */
+.gallery-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.gallery-card img {
+    transition: transform 0.5s ease;
+}
+
+.gallery-card:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 10px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-card:hover .gallery-caption {
+    transform: translateY(0);
+}
+
+/* Contact Page Styles */
+.contact-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #006600;
+    color: white !important;
+}
+
+.map-container {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%;
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Calendar and Fees Page Styles */
+.payment-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.term-item {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .timeline {
+        padding-left: 40px;
+    }
+
+    .timeline-icon {
+        left: -40px;
+        width: 30px;
+        height: 30px;
+    }
+
+    .event-meta {
+        flex-direction: column;
+    }
+
+    .event-meta small {
+        margin-bottom: 5px;
+    }
+}
+
+/* Navbar School Name and Motto Styles */
+.school-name {
+    font-size: 1.1rem;
+    line-height: 1.2;
+    margin-bottom: 0;
+}
+
+.school-motto {
+    font-size: 0.7rem;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+}
+
+/* Adjust navbar brand for different screen sizes */
+@media (max-width: 992px) {
+    .school-name {
+        font-size: 1rem;
+    }
+    .school-motto {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-brand {
+        flex-direction: row;
+        align-items: center;
+    }
+    .school-name {
+        font-size: 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+    }
+    .school-motto {
+        font-size: 0.6rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand img {
+        width: 40px;
+        height: 40px;
+    }
+    .school-name {
+        font-size: 0.8rem;
+        max-width: 120px;
+    }
+    .school-motto {
+        font-size: 0.55rem;
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 400px) {
+    .school-name {
+        font-size: 0.7rem;
+        max-width: 100px;
+    }
+    .school-motto {
+        font-size: 0.5rem;
+        max-width: 100px;
+    }
+}

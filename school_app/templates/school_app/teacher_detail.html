@@ -1,55 +1,51 @@
-{% extends 'base.html' %}
+{% extends 'school_app/base.html' %}
 {% load static %}
 
-{% block title %}{{ teacher.name }} - {{ school.school_name }}{% endblock %}
+{% block title %}{{ teacher.name }}{% endblock %}
 
 {% block content %}
-<section class="py-5">
+<section class="teacher-detail-section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <article class="teacher-profile">
-                    <header class="mb-4 text-center">
-                        {% if teacher.image %}
-                            <img src="{{ teacher.image.url }}" alt="{{ teacher.name }}" class="rounded-circle mb-3" width="200" height="200">
+        <div class="teacher-profile">
+            <div class="profile-header">
+                {% if teacher.photo %}
+                <div class="profile-photo">
+                    <img src="{{ teacher.photo.url }}" alt="{{ teacher.name }}">
+                </div>
+                {% else %}
+                <div class="profile-photo default-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                {% endif %}
+
+                <div class="profile-info">
+                    <h1>{{ teacher.name }}</h1>
+                    <p class="position">{{ teacher.position }}</p>
+
+                    <div class="profile-contacts">
+                        {% if teacher.email %}
+                        <p><i class="fas fa-envelope"></i> {{ teacher.email }}</p>
                         {% endif %}
-                        <h1 class="fw-bold mb-1">{{ teacher.name }}</h1>
-                        <p class="text-muted">{{ teacher.position }}</p>
-                    </header>
 
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Subjects</h5>
-                                    <p class="card-text">{{ teacher.subjects }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        {% if teacher.is_featured %}
-                            <div class="col-md-6">
-                                <div class="card mb-3 bg-light">
-                                    <div class="card-body text-center">
-                                        <i class="fas fa-star text-warning"></i>
-                                        <span class="ms-2">Featured Teacher</span>
-                                    </div>
-                                </div>
-                            </div>
+                        {% if teacher.phone %}
+                        <p><i class="fas fa-phone"></i> {{ teacher.phone }}</p>
                         {% endif %}
-                    </div>
 
-                    <div class="teacher-bio">
-                        <h4 class="mb-3">About</h4>
-                        {{ teacher.bio|safe }}
+                        <p><i class="fas fa-book"></i> {{ teacher.subjects }}</p>
                     </div>
-
-                    <footer class="mt-5 pt-4 border-top text-center">
-                        <a href="{% url 'teacher-list' %}" class="btn btn-outline-primary">
-                            <i class="fas fa-arrow-left me-2"></i> Back to Teachers
-                        </a>
-                    </footer>
-                </article>
+                </div>
             </div>
+
+            <div class="profile-content">
+                <h2>About</h2>
+                <div class="bio-content">
+                    {{ teacher.bio|safe }}
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-navigation">
+            <a href="{% url 'teachers' %}" class="btn-back">Back to Teachers</a>
         </div>
     </div>
 </section>

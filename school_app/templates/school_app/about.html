@@ -1,88 +1,129 @@
-{% extends 'school_app/base.html' %}
+{% extends "school_app/base.html" %}
 {% load static %}
 
-{% block title %}About Us - {{ school_config.name }}{% endblock %}
+{% block title %}About Us{% endblock %}
 
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section bg-primary text-white py-5">
-    <div class="container py-5">
-        <div class="row py-5">
-            <div class="col-lg-8 mx-auto text-center">
-                <h1 class="display-4 fw-bold">About Our School</h1>
-                <p class="lead mb-0">Discover our history, mission, and values</p>
+<div class="container mt-5">
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h1 class="display-4 mb-4">About {{ settings.school_name }}</h1>
+            <div class="lead">{{ settings.aim|safe }}</div>
+        </div>
+        <div class="col-md-6">
+            {% if settings.logo %}
+            <div class="text-center">
+                <img src="{{ settings.logo.url }}" alt="{{ settings.school_name }}" class="img-fluid rounded-circle" style="max-width: 300px;">
             </div>
+            {% endif %}
         </div>
     </div>
-</section>
 
-<!-- Mission Section -->
-<section class="py-5">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 order-lg-2">
-                <div class="p-5">
-                    <img class="img-fluid rounded-circle" src="https://via.placeholder.com/500x500" alt="Mission">
-                </div>
-            </div>
-            <div class="col-lg-6 order-lg-1">
-                <div class="p-5">
-                    <h2 class="display-6">Our Mission</h2>
-                    {{ school_config.mission|safe }}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Vision Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="p-5">
-                    <img class="img-fluid rounded-circle" src="https://via.placeholder.com/500x500" alt="Vision">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="p-5">
-                    <h2 class="display-6">Our Vision</h2>
-                    {{ school_config.vision|safe }}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- History Section -->
-<section class="py-5">
-    <div class="container">
+    <!-- School History -->
+    <section class="mb-5 p-4 rounded" style="background-color: #f8f9fa;">
+        <h2 class="section-title text-center mb-4">Our History</h2>
         <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="display-6 mb-5">Our History</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae fuga optio dolorem, fugit voluptates sint ducimus praesentium veritatis, nostrum quaerat necessitatibus dignissimos, laudantium tempore porro. Quas, incidunt consequuntur velit voluptatem.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae fuga optio dolorem, fugit voluptates sint ducimus praesentium veritatis, nostrum quaerat necessitatibus dignissimos, laudantium tempore porro. Quas, incidunt consequuntur velit voluptatem.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Map Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="text-center mb-5">Our Location</h2>
-                {% if school_config.google_map_embed %}
-                <div class="ratio ratio-16x9">
-                    {{ school_config.google_map_embed|safe }}
+            <div class="col-lg-8 mx-auto">
+                <div class="timeline">
+                    {{ settings.history|safe }}
                 </div>
-                {% else %}
-                <p class="text-center">Map not available</p>
-                {% endif %}
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- Mission and Vision -->
+    <section class="mb-5">
+        <div class="row">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary"><i class="bi bi-bullseye"></i> Our Mission</h3>
+                        <p class="card-text">To provide quality education that nurtures holistic development, fosters critical thinking, and prepares students for global citizenship.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary"><i class="bi bi-eye"></i> Our Vision</h3>
+                        <p class="card-text">To be a leading educational institution in Kenya recognized for academic excellence, character development, and innovative learning approaches.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Values -->
+    <section class="mb-5">
+        <h2 class="section-title text-center mb-4">Core Values</h2>
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="value-icon mb-3">
+                            <i class="bi bi-heart-fill text-danger fs-1"></i>
+                        </div>
+                        <h5 class="card-title">Integrity</h5>
+                        <p class="card-text">Upholding honesty and ethical behavior in all our actions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="value-icon mb-3">
+                            <i class="bi bi-people-fill text-primary fs-1"></i>
+                        </div>
+                        <h5 class="card-title">Respect</h5>
+                        <p class="card-text">Valuing diversity and treating everyone with dignity.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="value-icon mb-3">
+                            <i class="bi bi-lightbulb-fill text-warning fs-1"></i>
+                        </div>
+                        <h5 class="card-title">Excellence</h5>
+                        <p class="card-text">Striving for the highest quality in all endeavors.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="value-icon mb-3">
+                            <i class="bi bi-hand-thumbs-up-fill text-success fs-1"></i>
+                        </div>
+                        <h5 class="card-title">Responsibility</h5>
+                        <p class="card-text">Being accountable for our actions and their impact.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Team -->
+    <section class="mb-5">
+        <h2 class="section-title text-center mb-4">Our Leadership</h2>
+        <div class="row">
+            {% for section in sections %}
+                {% for subsection in section.subsections.all %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            {% if subsection.image %}
+                                <img src="{{ subsection.image.url }}" class="card-img-top" alt="{{ subsection.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ subsection.title }}</h5>
+                                <div class="card-text">{{ subsection.content|safe }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </section>
+</div>
 {% endblock %}

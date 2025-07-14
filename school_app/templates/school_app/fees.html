@@ -1,0 +1,146 @@
+{% extends 'school_app/base.html' %}
+{% load static %}
+
+{% block title %}Fee Structure - {{ school_settings.school_name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 mb-3">Fee Structure</h1>
+            <p class="lead">Financial information for our academic programs</p>
+        </div>
+    </div>
+
+    <!-- Fee Structure Downloads -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Fee Structure Documents</h2>
+
+                    {% if fee_structures %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Download</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for fee in fee_structures %}
+                                        <tr>
+                                            <td>{{ fee.title }}</td>
+                                            <td>{{ fee.description|default:"-" }}</td>
+                                            <td>
+                                                <a href="{{ fee.fee_file.url }}" class="btn btn-sm btn-outline-primary" download>
+                                                    <i class="fas fa-download me-2"></i> Download
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">No fee structure documents available at the moment.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Information -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Payment Methods</h2>
+                    <div class="payment-methods">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="payment-icon me-3">
+                                <i class="fas fa-university fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5>Bank Transfer</h5>
+                                <p class="mb-0">Direct bank transfer to our school account</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="payment-icon me-3">
+                                <i class="fas fa-mobile-alt fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5>Mobile Money</h5>
+                                <p class="mb-0">Pay via M-Pesa, Airtel Money or other mobile money platforms</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center">
+                            <div class="payment-icon me-3">
+                                <i class="fas fa-money-bill-wave fa-2x text-primary"></i>
+                            </div>
+                            <div>
+                                <h5>Cash Payment</h5>
+                                <p class="mb-0">Pay directly at the school accounts office</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Payment Terms</h2>
+                    <div class="payment-terms">
+                        <div class="term-item mb-3">
+                            <h5><i class="fas fa-calendar-check me-2 text-primary"></i> Termly Payments</h5>
+                            <p>Fees are payable at the beginning of each term (3 terms per year).</p>
+                        </div>
+
+                        <div class="term-item mb-3">
+                            <h5><i class="fas fa-percentage me-2 text-primary"></i> Discounts</h5>
+                            <p>Sibling discounts available (10% for second child, 15% for third and subsequent children).</p>
+                        </div>
+
+                        <div class="term-item">
+                            <h5><i class="fas fa-exclamation-circle me-2 text-primary"></i> Late Payments</h5>
+                            <p>A penalty of 5% per month will be charged for late payments after the due date.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dynamic Sections -->
+    {% for section in sections %}
+        <section class="py-5 my-5" style="background-color: {{ section.background_color }}; border-radius: 10px;">
+            <div class="container">
+                <h2 class="text-center mb-5">{{ section.title }}</h2>
+
+                <div class="row">
+                    {% for subsection in section.subsections.all %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm" style="background-color: {{ subsection.background_color }};">
+                                {% if subsection.image %}
+                                    <img src="{{ subsection.image.url }}" class="card-img-top" alt="{{ subsection.title }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ subsection.title }}</h5>
+                                    <div class="card-text">{{ subsection.content|safe }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endfor %}
+</div>
+{% endblock %}

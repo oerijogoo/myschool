@@ -1,49 +1,74 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: {{ school_config.navbar_color }};">
+{%load static%}
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">
-            {% if school_config.logo %}
-            <img src="{{ school_config.logo.url }}" alt="{{ school_config.name }}" height="40" class="d-inline-block align-top">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+            {% if school_settings and school_settings.logo %}
+                <img src="{{ school_settings.logo.url }}" alt="{{ school_settings.school_name }}"
+                     class="rounded-circle me-2" width="50" height="50">
+            {% else %}
+                <div class="bg-light rounded-circle d-flex align-items-center justify-content-center me-2"
+                     style="width: 50px; height: 50px;">
+                    <i class="fas fa-school text-dark"></i>
+                </div>
             {% endif %}
-            {{ school_config.name }}
+            <div class="d-flex flex-column">
+                <strong class="school-name">
+                    {{ school_settings.school_name|default:"Kenyan Excellence Academy" }}
+                </strong>
+                <small class="school-motto">
+                    {{ school_settings.motto|default:"Striving for Excellence" }}
+                    <img src="{% static 'school_app/images/kenya-flag.png' %}" alt="Kenya Flag" width="20" class="ms-1">
+                </small>
+            </div>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarContent" aria-controls="navbarContent"
+                aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Academics
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'class-list' %}">Classes</a></li>
-                        <li><a class="dropdown-item" href="{% url 'teacher-list' %}">Teachers</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'achievement-list' %}">Achievements</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        News & Events
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'news-list' %}">News</a></li>
-                        <li><a class="dropdown-item" href="{% url 'event-list' %}">Events</a></li>
-                    </ul>
+                    <a class="nav-link {% if page == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
+                    <a class="nav-link {% if page == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                    <a class="nav-link {% if page == 'academics' %}active{% endif %}" href="{% url 'academics' %}">Academics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page == 'admissions' %}active{% endif %}" href="{% url 'admissions' %}">Admissions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page == 'news' %}active{% endif %}" href="{% url 'news' %}">News</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page == 'events' %}active{% endif %}" href="{% url 'events' %}">Events</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page == 'achievements' %}active{% endif %}" href="{% url 'achievements' %}">Achievements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page == 'gallery' %}active{% endif %}" href="{% url 'gallery' %}">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if page == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <div class="advert-container w-100">
+        <div class="advert-marquee">
+            {% for advert in navbar_adverts %}
+                <span class="advert-text"
+                      style="background-color: {{ advert.background_color }}; color: {{ advert.text_color }};">
+                    {{ advert.text }}
+                </span>
+            {% endfor %}
         </div>
     </div>
 </nav>

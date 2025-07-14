@@ -1,102 +1,91 @@
 {% extends 'school_app/base.html' %}
 {% load static %}
 
-{% block title %}Events{% endblock %}
+{% block title %}Events - {{ school_settings.school_name }}{% endblock %}
 
 {% block content %}
-    <!-- Events Hero Section -->
-    <section class="events-hero-section py-5 bg-primary text-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="display-4">School Events</h1>
-                    <p class="lead">Discover our upcoming and past events</p>
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 mb-3">School Events</h1>
+            <p class="lead">Upcoming and past events at our school</p>
+        </div>
+    </div>
+
+    <!-- Events Tabs -->
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-tabs mb-4" id="eventsTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">Upcoming Events</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="past-tab" data-bs-toggle="tab" data-bs-target="#past" type="button" role="tab" aria-controls="past" aria-selected="false">Past Events</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="eventsTabContent">
+                <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
+                    {% if upcoming_events %}
+                        <div class="row">
+                            {% for event in upcoming_events %}
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <h3 class="card-title mb-0">{{ event.title }}</h3>
+                                                <span class="badge bg-primary">{{ event.date|date:"M d" }}</span>
+                                            </div>
+                                            <p class="card-text">{{ event.description|striptags|truncatewords:30 }}</p>
+                                            <div class="event-meta">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-clock me-1"></i> {{ event.time|time:"g:i A"|default:"All Day" }}
+                                                </small>
+                                                <small class="text-muted ms-3">
+                                                    <i class="fas fa-map-marker-alt me-1"></i> {{ event.location }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">No upcoming events scheduled. Please check back later.</div>
+                    {% endif %}
+                </div>
+
+                <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
+                    {% if past_events %}
+                        <div class="row">
+                            {% for event in past_events %}
+                                <div class="col-md-6 mb-4">
+                                    <div class="card h-100 shadow-sm">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <h3 class="card-title mb-0">{{ event.title }}</h3>
+                                                <span class="badge bg-secondary">{{ event.date|date:"M d, Y" }}</span>
+                                            </div>
+                                            <p class="card-text">{{ event.description|striptags|truncatewords:30 }}</p>
+                                            <div class="event-meta">
+                                                <small class="text-muted">
+                                                    <i class="fas fa-clock me-1"></i> {{ event.time|time:"g:i A"|default:"All Day" }}
+                                                </small>
+                                                <small class="text-muted ms-3">
+                                                    <i class="fas fa-map-marker-alt me-1"></i> {{ event.location }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">No past events to display.</div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Upcoming Events Section -->
-    <section class="py-5">
-        <div class="container">
-            <h2 class="section-title mb-5">Upcoming Events</h2>
-            <div class="row">
-                {% for event in upcoming_events %}
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            {% if event.image %}
-                                <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
-                            {% endif %}
-                            <div class="card-body">
-                                <h3 class="card-title">{{ event.title }}</h3>
-                                <ul class="list-group list-group-flush mb-3">
-                                    <li class="list-group-item">
-                                        <i class="fas fa-calendar-alt me-2"></i>
-                                        {{ event.start_date|date:"M d, Y" }}
-                                        {% if event.end_date != event.start_date %}
-                                            - {{ event.end_date|date:"M d, Y" }}
-                                        {% endif %}
-                                    </li>
-                                    <li class="list-group-item">
-                                        <i class="fas fa-clock me-2"></i>
-                                        {{ event.start_date|time }}
-                                    </li>
-                                    <li class="list-group-item">
-                                        <i class="fas fa-map-marker-alt me-2"></i>
-                                        {{ event.location }}
-                                    </li>
-                                </ul>
-                                <p class="card-text">{{ event.description|striptags|truncatewords:20 }}</p>
-                                <a href="{% url 'event_detail' event.pk %}" class="btn btn-primary">Details</a>
-                            </div>
-                        </div>
-                    </div>
-                {% empty %}
-                    <div class="col-12">
-                        <div class="alert alert-info">No upcoming events at the moment.</div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-
-    <!-- Past Events Section -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title mb-5">Past Events</h2>
-            <div class="row">
-                {% for event in past_events %}
-                    <div class="col-md-6 col-lg-4 mb-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            {% if event.image %}
-                                <img src="{{ event.image.url }}" class="card-img-top" alt="{{ event.title }}">
-                            {% endif %}
-                            <div class="card-body">
-                                <h3 class="card-title">{{ event.title }}</h3>
-                                <ul class="list-group list-group-flush mb-3">
-                                    <li class="list-group-item">
-                                        <i class="fas fa-calendar-alt me-2"></i>
-                                        {{ event.start_date|date:"M d, Y" }}
-                                        {% if event.end_date != event.start_date %}
-                                            - {{ event.end_date|date:"M d, Y" }}
-                                        {% endif %}
-                                    </li>
-                                    <li class="list-group-item">
-                                        <i class="fas fa-map-marker-alt me-2"></i>
-                                        {{ event.location }}
-                                    </li>
-                                </ul>
-                                <p class="card-text">{{ event.description|striptags|truncatewords:20 }}</p>
-                                <a href="{% url 'event_detail' event.pk %}" class="btn btn-outline-primary">Details</a>
-                            </div>
-                        </div>
-                    </div>
-                {% empty %}
-                    <div class="col-12">
-                        <div class="alert alert-info">No past events to display.</div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+    </div>
+</div>
 {% endblock %}

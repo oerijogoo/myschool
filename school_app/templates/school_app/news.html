@@ -1,47 +1,83 @@
 {% extends 'school_app/base.html' %}
 {% load static %}
 
-{% block title %}News{% endblock %}
+{% block title %}News - {{ school_settings.school_name }}{% endblock %}
 
 {% block content %}
-    <!-- News Hero Section -->
-    <section class="news-hero-section py-5 bg-primary text-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h1 class="display-4">School News</h1>
-                    <p class="lead">Stay updated with the latest happenings in our school</p>
+<div class="container py-5">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 mb-3">School News</h1>
+            <p class="lead">Stay updated with our latest news and announcements</p>
+        </div>
+    </div>
+
+    <!-- News List -->
+    <div class="row">
+        {% for news_item in news_list %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    {% if news_item.image %}
+                        <img src="{{ news_item.image.url }}" class="card-img-top" alt="{{ news_item.title }}">
+                    {% else %}
+                        <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
+                            <i class="fas fa-newspaper fa-3x text-white"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{ news_item.title }}</h3>
+                        <p class="card-text">{{ news_item.content|striptags|truncatewords:20 }}</p>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                        <small class="text-muted">{{ news_item.created_at|date:"M d, Y" }}</small>
+                        <a href="{% url 'news_detail' news_item.id %}" class="btn btn-sm btn-outline-primary float-end">Read More</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- News List Section -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                {% for news in news_list %}
-                    <div class="col-lg-6 mb-4">
-                        <div class="card h-100 border-0 shadow-sm">
-                            {% if news.image %}
-                                <img src="{{ news.image.url }}" class="card-img-top" alt="{{ news.title }}">
-                            {% endif %}
-                            <div class="card-body">
-                                <h3 class="card-title">{{ news.title }}</h3>
-                                <p class="card-text">{{ news.content|striptags|truncatewords:30 }}</p>
-                                <a href="{% url 'news_detail' news.pk %}" class="btn btn-primary">Read More</a>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <small class="text-muted">Posted on {{ news.created_at|date:"M d, Y" }}</small>
-                            </div>
-                        </div>
-                    </div>
-                {% empty %}
-                    <div class="col-12">
-                        <div class="alert alert-info">No news available at the moment.</div>
-                    </div>
-                {% endfor %}
+        {% empty %}
+            <div class="col-12 text-center">
+                <div class="alert alert-info">No news articles available at the moment. Please check back later.</div>
             </div>
-        </div>
-    </section>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <nav aria-label="News pagination" class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</div>
 {% endblock %}

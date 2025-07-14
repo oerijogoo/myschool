@@ -1,105 +1,42 @@
 {% extends 'school_app/base.html' %}
+{% load static %}
 
 {% block title %}Our Teachers{% endblock %}
 
 {% block content %}
-<section class="py-5">
+<section class="teachers-section">
     <div class="container">
-        <h1 class="mb-5">Meet Our Teachers</h1>
+        <h1>Our Teaching Staff</h1>
 
-        <div class="row">
+        <div class="teachers-grid">
             {% for teacher in teachers %}
-            <div class="col-md-6 col-lg-3 mb-4">
-                <div class="card h-100 teacher-card text-center">
-                    <div class="teacher-photo-container">
-                        {% if teacher.photo %}
-                        <img src="{{ teacher.photo.url }}" class="card-img-top" alt="{{ teacher.name }}">
-                        {% else %}
-                        <div class="no-photo">
-                            <i class="fas fa-user-tie fa-5x"></i>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="card-body">
-                        <h3 class="card-title">{{ teacher.name }}</h3>
-                        <p class="card-subtitle text-muted mb-3">{{ teacher.subject }}</p>
-                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                data-bs-target="#teacherModal{{ teacher.id }}">
-                            View Profile
-                        </button>
-                    </div>
+            <div class="teacher-card">
+                {% if teacher.photo %}
+                <div class="teacher-photo">
+                    <img src="{{ teacher.photo.url }}" alt="{{ teacher.name }}">
                 </div>
-            </div>
+                {% else %}
+                <div class="teacher-photo default-photo">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                {% endif %}
 
-            <!-- Teacher Modal -->
-            <div class="modal fade" id="teacherModal{{ teacher.id }}" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">{{ teacher.name }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    {% if teacher.photo %}
-                                    <img src="{{ teacher.photo.url }}" class="img-fluid rounded mb-3" alt="{{ teacher.name }}">
-                                    {% else %}
-                                    <div class="no-photo-large text-center py-5 bg-light rounded mb-3">
-                                        <i class="fas fa-user-tie fa-5x text-muted"></i>
-                                    </div>
-                                    {% endif %}
-                                    <h5 class="text-center">{{ teacher.subject }}</h5>
-                                </div>
-                                <div class="col-md-8">
-                                    <h4>About</h4>
-                                    <div class="teacher-bio">
-                                        {{ teacher.bio|safe }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
+                <div class="teacher-info">
+                    <h2>{{ teacher.name }}</h2>
+                    <p class="position">{{ teacher.position }}</p>
+                    <p class="subjects"><strong>Subjects:</strong> {{ teacher.subjects }}</p>
+
+                    <div class="teacher-bio">
+                        {{ teacher.bio|striptags|truncatewords:20 }}
                     </div>
+
+                    <a href="{% url 'teacher_detail' teacher.pk %}" class="teacher-link">View Profile</a>
                 </div>
             </div>
             {% empty %}
-            <div class="col-12">
-                <div class="alert alert-info">No teacher information available at this time.</div>
-            </div>
+            <p>No teachers information available.</p>
             {% endfor %}
         </div>
     </div>
 </section>
-
-<style>
-    .teacher-photo-container {
-        height: 200px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .teacher-photo-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .no-photo {
-        padding: 20px;
-        color: #6c757d;
-    }
-
-    .teacher-card {
-        transition: transform 0.3s ease;
-    }
-
-    .teacher-card:hover {
-        transform: translateY(-5px);
-    }
-</style>
 {% endblock %}
