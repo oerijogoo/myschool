@@ -2,8 +2,8 @@ FROM python:3.10
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app/myschool \
-    DJANGO_SETTINGS_MODULE=school.settings
+    PYTHONPATH=/app \
+    DJANGO_SETTINGS_MODULE=myschool.school.settings
 
 # Create and set working directory
 WORKDIR /app
@@ -17,10 +17,13 @@ RUN pip install -r requirements.txt
 # Copy the entire project
 COPY . .
 
-# Change to the project directory
+# Verify the file structure (debugging line - can remove later)
+RUN ls -l /app && ls -l /app/myschool
+
+# Change to the correct directory where manage.py exists
 WORKDIR /app/myschool
 
-# Run collectstatic and migrations
+# Run collectstatic
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 7903
