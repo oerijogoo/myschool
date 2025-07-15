@@ -29,12 +29,17 @@ DEBUG = False
 CSRF_TRUSTED_ORIGINS = [
     'https://lewantaiacademy.onrender.com',
     'https://www.lewantaiacademy.onrender.com',
+    'http://127.0.0.1:8000',
+    'http://localhost:8000'
+
 ]
 
 # Also ensure these settings are correct
 ALLOWED_HOSTS = [
     'lewantaiacademy.onrender.com',
     '.lewantaiacademy.onrender.com',
+    '127.0.0.1',
+    'localhost'
 ]
 
 # If using sessions
@@ -125,10 +130,10 @@ DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': os.getenv('DB_NAME', 'postgres'),
-            'USER': os.getenv('DB_USER', 'postgres.yhjdcpkftwqniegldefo'),
-            'PASSWORD': os.getenv('DB_PASSWORD', 'd8AUyoqPRmdgFjVR'),
-            'HOST': os.getenv('DB_HOST', 'aws-0-eu-north-1.pooler.supabase.com'),
-            'PORT': os.getenv('DB_PORT', '5432'),
+            'USER': os.getenv('DB_USER', 'postgres.zozungematpczlpoeyzo'),
+            'PASSWORD': os.getenv('DB_PASSWORD', 'Egesusu0725#'),
+            'HOST': os.getenv('DB_HOST', 'aws-0-eu-west-2.pooler.supabase.com'),
+            'PORT': os.getenv('DB_PORT', '6543'),
             'CONN_MAX_AGE': 600,    # Keeps connections open for 10 minutes
             'OPTIONS': {
                 'sslmode': 'require',  # Ensures SSL connection for security
@@ -163,7 +168,7 @@ CKEDITOR_CONFIGS = {
 
 CKEDITOR_UPLOAD_PATH = "content/ckeditor/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_ALLOW_NONIMAGE_FILES = True
 
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
