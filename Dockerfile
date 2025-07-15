@@ -8,26 +8,24 @@ ENV DJANGO_SETTINGS_MODULE=school.settings
 # Create and set working directory
 WORKDIR /app
 
-# Copy requirements first for caching
+# Install dependencies first (caching optimization)
 COPY requirements.txt .
-
-# Install dependencies
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-# Copy ALL project files including the school directory
-COPY . .
+# Copy the ENTIRE project structure
+COPY myschool/ .
 
-# Verify what was copied (debugging)
-RUN ls -l && \
-    echo "Contents of school directory:" && \
+# Verify the copied structure
+RUN echo "Project structure:" && \
+    find . -type d | sort && \
+    echo "\nSchool directory contents:" && \
     ls -l school/ && \
-    echo "Contents of school_app directory:" && \
+    echo "\nSchool_app directory contents:" && \
     ls -l school_app/
 
 # Run Django commands
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 7903
-
 CMD ["python", "manage.py", "runserver", "0.0.0.0:7903"]
