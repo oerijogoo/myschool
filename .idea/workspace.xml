@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca611501-6ae2-48b1-baa5-c40924ac553c" name="Changes" comment="docker updated" />
+    <list default="true" id="ca611501-6ae2-48b1-baa5-c40924ac553c" name="Changes" comment="docker updateding" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -216,7 +216,23 @@
       <option name="project" value="LOCAL" />
       <updated>1752557592857</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="docker updateding">
+      <option name="closed" value="true" />
+      <created>1752558072660</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1752558072660</updated>
+    </task>
+    <task id="LOCAL-00020" summary="docker updateding">
+      <option name="closed" value="true" />
+      <created>1752558294195</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1752558294195</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -234,6 +250,7 @@
     <MESSAGE value="docker update" />
     <MESSAGE value="docker updates" />
     <MESSAGE value="docker updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="docker updated" />
+    <MESSAGE value="docker updateding" />
+    <option name="LAST_COMMIT_MESSAGE" value="docker updateding" />
   </component>
 </project>
