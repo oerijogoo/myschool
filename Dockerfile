@@ -21,7 +21,7 @@ COPY . .
 # Verify file structure (debugging)
 RUN ls -l && ls -l school/ && ls -l school_app/
 
-# Run Django commands
+# Run Django commandss
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 7903
