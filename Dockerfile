@@ -1,9 +1,9 @@
 FROM python:3.10
 
 # Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONPATH=/app \
-    DJANGO_SETTINGS_MODULE=school.settings  # Changed from myschool.school.settings
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app
+ENV DJANGO_SETTINGS_MODULE=school.settings
 
 # Create and set working directory
 WORKDIR /app
@@ -14,7 +14,7 @@ COPY requirements.txt .
 # Install dependencies
 RUN pip install -r requirements.txt
 
-# Copy the entire project (note we're not using myschool directory)
+# Copy the entire project
 COPY . .
 
 # Verify the file structure
