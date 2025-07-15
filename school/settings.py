@@ -23,9 +23,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9^e2hlqdqv*go^g5uc#xg&q=i5-$q0_#9(8)gv%o84xl_+sk)g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']  # For development, replace with your domain in production
+# Add these to your Django settings
+CSRF_TRUSTED_ORIGINS = [
+    'https://lewantaiacademy.onrender.com',
+    'https://www.lewantaiacademy.onrender.com',
+]
+
+# Also ensure these settings are correct
+ALLOWED_HOSTS = [
+    'lewantaiacademy.onrender.com',
+    '.lewantaiacademy.onrender.com',
+]
+
+# If using sessions
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 
 # Application definition
