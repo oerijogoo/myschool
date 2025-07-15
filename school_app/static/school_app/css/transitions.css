@@ -1,0 +1,108 @@
+/* Hero Transitions */
+.hero-transition {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+/* Fade Transition */
+[data-transition="fade"] .hero-slide {
+    transition: opacity 1.5s ease-in-out;
+}
+
+/* Zoom Transition */
+[data-transition="zoom"] .hero-slide {
+    transform: scale(1.1);
+    transition: transform 8s ease, opacity 1s ease;
+}
+
+[data-transition="zoom"] .hero-slide.active {
+    transform: scale(1);
+}
+
+/* Flip Transition */
+[data-transition="flip"] .hero-slide {
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    transition: transform 1.5s ease, opacity 1s ease;
+}
+
+[data-transition="flip"] .hero-slide.active {
+    transform: rotateY(0deg);
+}
+
+/* Slide Transition */
+[data-transition="slide"] .hero-slide {
+    transform: translateX(100%);
+    transition: transform 1s ease;
+}
+
+[data-transition="slide"] .hero-slide.active {
+    transform: translateX(0);
+}
+
+[data-transition="slide"] .hero-slide.prev {
+    transform: translateX(-100%);
+}
+
+/* Carousel Transition (Bootstrap default) */
+/* No additional CSS needed */
+
+/* Flip 3D Transition */
+[data-transition="flip3d"] .hero-slide {
+    transform: perspective(1200px) rotateY(180deg);
+    backface-visibility: hidden;
+    transition: transform 1.5s ease;
+}
+
+[data-transition="flip3d"] .hero-slide.active {
+    transform: perspective(1200px) rotateY(0deg);
+}
+
+/* Mask Reveal Transition */
+[data-transition="mask_reveal"] .hero-slide {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+    transition: clip-path 1.5s ease;
+}
+
+[data-transition="mask_reveal"] .hero-slide.active {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Ken Burns Effect */
+[data-transition="ken_burns"] .hero-slide img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: kenburns 16s infinite;
+}
+
+@keyframes kenburns {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
