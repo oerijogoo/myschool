@@ -13,8 +13,8 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-# Copy the ENTIRE project structure
-COPY myschool/ .
+# Copy all files from the repository root
+COPY . .
 
 # Verify the copied structure
 RUN echo "Project structure:" && \
