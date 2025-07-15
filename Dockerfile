@@ -15,13 +15,17 @@ COPY requirements.txt .
 RUN pip install --upgrade pip && \
     pip install -r requirements.txt
 
-# Copy all project files
+# Copy ALL project files including the school directory
 COPY . .
 
-# Verify file structure (debugging)
-RUN ls -l && ls -l school/ && ls -l school_app/
+# Verify what was copied (debugging)
+RUN ls -l && \
+    echo "Contents of school directory:" && \
+    ls -l school/ && \
+    echo "Contents of school_app directory:" && \
+    ls -l school_app/
 
-# Run Django commandss
+# Run Django commands
 RUN python manage.py collectstatic --noinput
 
 EXPOSE 7903
