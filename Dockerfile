@@ -3,25 +3,22 @@ FROM python:3.10
 # Set environment variables
 ENV PYTHONUNBUFFERED=1 \
     PYTHONPATH=/app \
-    DJANGO_SETTINGS_MODULE=myschool.school.settings
+    DJANGO_SETTINGS_MODULE=school.settings  # Changed from myschool.school.settings
 
 # Create and set working directory
 WORKDIR /app
 
 # Copy only requirements first to leverage Docker cache
-COPY ./requirements.txt .
+COPY requirements.txt .
 
 # Install dependencies
 RUN pip install -r requirements.txt
 
-# Copy the entire project
+# Copy the entire project (note we're not using myschool directory)
 COPY . .
 
-# Verify the file structure (debugging line - can remove later)
-RUN ls -l /app && ls -l /app/myschool
-
-# Change to the correct directory where manage.py exists
-WORKDIR /app/myschool
+# Verify the file structure
+RUN ls -l
 
 # Run collectstatic
 RUN python manage.py collectstatic --noinput

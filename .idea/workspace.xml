@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca611501-6ae2-48b1-baa5-c40924ac553c" name="Changes" comment="docker update" />
+    <list default="true" id="ca611501-6ae2-48b1-baa5-c40924ac553c" name="Changes" comment="docker updated" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -200,7 +200,23 @@
       <option name="project" value="LOCAL" />
       <updated>1752556777433</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="docker updates">
+      <option name="closed" value="true" />
+      <created>1752557187344</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1752557187344</updated>
+    </task>
+    <task id="LOCAL-00018" summary="docker updated">
+      <option name="closed" value="true" />
+      <created>1752557592850</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1752557592857</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -216,6 +232,8 @@
     <MESSAGE value="school render yaml final" />
     <MESSAGE value="school render yaml 100" />
     <MESSAGE value="docker update" />
-    <option name="LAST_COMMIT_MESSAGE" value="docker update" />
+    <MESSAGE value="docker updates" />
+    <MESSAGE value="docker updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="docker updated" />
   </component>
 </project>
