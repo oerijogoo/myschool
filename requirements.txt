@@ -13,4 +13,5 @@ django-environ
 cloudinary
 dj_database_url
 django-colorfield
+whitenoise
 
